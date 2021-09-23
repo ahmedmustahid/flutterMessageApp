@@ -59,17 +59,56 @@ class _ChatsScreenState extends State<ChatsScreen> {
       automaticallyImplyLeading: false,
       title: Text("Chats"),
       actions: <Widget>[
-        //MyStatefulWidget()
-        IconButton(
-          icon: const Icon(Icons.more_vert_outlined),
-          tooltip: 'Menu',
-          onPressed: () {
-            setState(() {
-              MyStatefulWidget();
-            });
-            ;
-          },
-        ),
+        PopupMenuButton(
+            itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Visualize',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Icon(
+                            Icons.scatter_plot_sharp,
+                            color: Colors.black,
+                          )
+                        ],
+                      ),
+                    ),
+                    value: 1,
+                  ),
+                  PopupMenuItem(
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Logout',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Icon(
+                            Icons.logout,
+                            color: Colors.black,
+                          )
+                        ],
+                      ),
+                    ),
+                    value: 2,
+                  )
+                ])
+
+        // //MyStatefulWidget()
+        // IconButton(
+        //   icon: const Icon(Icons.more_vert_outlined),
+        //   tooltip: 'Menu',
+        //   onPressed: () {
+        //     setState(() {
+        //       MyStatefulWidget();
+        //     });
+        //   },
+        // ),
       ],
     );
   }
