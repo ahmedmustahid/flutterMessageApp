@@ -36,12 +36,17 @@ class WelcomeScreen extends StatelessWidget {
             Spacer(flex: 3),
             FittedBox(
               child: TextButton(
-                  onPressed: () => Navigator.push(
-                        context,
+                  onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => SigninOrSignupScreen(),
-                        ),
+                            builder: (context) => SigninOrSignupScreen()),
+                        (route) => false,
                       ),
+                  // onPressed: () => Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => SigninOrSignupScreen(),
+                  //       ),
+                  //     ),
                   child: Row(
                     children: [
                       Text(

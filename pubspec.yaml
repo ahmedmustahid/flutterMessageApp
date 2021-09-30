@@ -31,6 +31,12 @@ dependencies:
   # allows us to easily use any of the 977 fonts from fonts.google.com
   google_fonts: ^2.0.0
   lottie: ^1.1.0
+  amplify_api: ^0.2.4
+  amplify_flutter: ^0.2.4
+  amplify_storage_s3: ^0.2.4
+  amplify_auth_cognito: ^0.2.4
+  fl_chart: ^0.40.0
+  
 
 dev_dependencies:
   flutter_test:

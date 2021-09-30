@@ -1,5 +1,5 @@
 import 'package:chat/constants.dart';
-import 'package:chat/screens/chats/components/drop_down_from_dots.dart';
+import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -16,14 +16,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   backgroundColor: kPrimaryColor,
-      //   child: Icon(
-      //     Icons.person_add_alt_1,
-      //     color: Colors.white,
-      //   ),
-      //),
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
@@ -39,14 +31,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
       },
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
-        //BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
-        //BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
         BottomNavigationBarItem(
           icon: CircleAvatar(
             radius: 14,
             backgroundColor: Colors.brown.shade800,
             child: const Text('S'),
-            //backgroundImage: AssetImage("assets/images/user_2.png"),
           ),
           label: "Profile",
         ),
@@ -59,56 +48,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       automaticallyImplyLeading: false,
       title: Text("Chats"),
       actions: <Widget>[
-        PopupMenuButton(
-            itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Visualize',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          Icon(
-                            Icons.scatter_plot_sharp,
-                            color: Colors.black,
-                          )
-                        ],
-                      ),
-                    ),
-                    value: 1,
-                  ),
-                  PopupMenuItem(
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Logout',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          Icon(
-                            Icons.logout,
-                            color: Colors.black,
-                          )
-                        ],
-                      ),
-                    ),
-                    value: 2,
-                  )
-                ])
-
-        // //MyStatefulWidget()
-        // IconButton(
-        //   icon: const Icon(Icons.more_vert_outlined),
-        //   tooltip: 'Menu',
-        //   onPressed: () {
-        //     setState(() {
-        //       MyStatefulWidget();
-        //     });
-        //   },
-        // ),
+        PopUpMenu(),
       ],
     );
   }
