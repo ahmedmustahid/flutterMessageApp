@@ -1,7 +1,9 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:chat/routes/routes_path.dart';
 import 'package:chat/services/get_it_service.dart';
 import 'package:chat/services/navigation_service.dart';
+import 'package:chat/services/size_config.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatefulWidget {
@@ -24,9 +26,10 @@ class _WrapperState extends State<Wrapper> {
     AuthSession authSessions = await Amplify.Auth.fetchAuthSession();
     if (authSessions.isSignedIn) {
       // await Amplify.Auth.signOut();
-      _navigationService.popAllAndReplace(RoutePath.Home);
+      _navigationService.popAllAndReplace(RoutePath.Register);
     } else
-      _navigationService.popAllAndReplace(RoutePath.Splash);
+      _navigationService.popAllAndReplace(RoutePath.Register);
+    //_navigationService.popAllAndReplace(RoutePath.Splash);
   }
 
   @override

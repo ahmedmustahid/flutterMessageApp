@@ -9,6 +9,11 @@ abstract class AuthRepository {
   Future<bool> loginWithUsernamePassword(String username, String password);
   Future<bool> hasUsername();
   Future<dynamic> getUserFromGraphql();
+  Future<bool> signupWithEmailPassword(
+    String email,
+    String password,
+    String name,
+  );
 }
 
 class AuthRepositoryClass implements AuthRepository {
@@ -25,6 +30,26 @@ class AuthRepositoryClass implements AuthRepository {
       return res.isSignedIn;
     } catch (e) {
       print(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> signupWithEmailPassword(
+    String email,
+    String password,
+    String name,
+  ) async {
+    try {
+      Map<String, String> userAttributes = {'name': name};
+      await Amplify.Auth.signUp(
+        username: email,
+        password: password,
+        options: CognitoSignUpOptions(userAttributes: userAttributes),
+      );
+      return true;
+    } catch (e) {
+      print(e.toString());
       rethrow;
     }
   }
