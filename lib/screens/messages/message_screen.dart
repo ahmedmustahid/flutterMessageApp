@@ -4,11 +4,16 @@
 //import 'package:path/path.dart' as Path;
 import 'package:chat/components/menu_items.dart';
 import 'package:chat/constants.dart';
+import 'package:chat/models/chat_model.dart';
 import 'package:chat/models/menu_item.dart';
+import 'package:chat/notifiers/chat_data_notifier.dart';
+import 'package:chat/notifiers/providers.dart';
 import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:chat/screens/messages/components/visualization_screen.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
+import 'package:chat/services/format_date.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'components/body.dart';
 
