@@ -1,15 +1,23 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-fluttermessageapp-dev-131939-authRole",
-      "UnauthRoleArn": "arn:aws:iam::906756132937:role/amplify-fluttermessageapp-dev-131939-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::906756132937:role/amplify-fluttermessageapp-dev-131939-authRole",
-      "Region": "ap-northeast-1",
-      "DeploymentBucketName": "amplify-fluttermessageapp-dev-131939-deployment",
-      "UnauthRoleName": "amplify-fluttermessageapp-dev-131939-unauthRole",
-      "StackName": "amplify-fluttermessageapp-dev-131939",
-      "StackId": "arn:aws:cloudformation:ap-northeast-1:906756132937:stack/amplify-fluttermessageapp-dev-131939/a2d41050-21a5-11ec-9097-0ead9c7fd213",
-      "AmplifyAppId": "d2f6p0el32dmfv"
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-fluttermessageapp-dev-131939-authRole",
+            "UnauthRoleArn": "arn:aws:iam::906756132937:role/amplify-fluttermessageapp-dev-131939-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::906756132937:role/amplify-fluttermessageapp-dev-131939-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "amplify-fluttermessageapp-dev-131939-deployment",
+            "UnauthRoleName": "amplify-fluttermessageapp-dev-131939-unauthRole",
+            "StackName": "amplify-fluttermessageapp-dev-131939",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:906756132937:stack/amplify-fluttermessageapp-dev-131939/a2d41050-21a5-11ec-9097-0ead9c7fd213",
+            "AmplifyAppId": "d2f6p0el32dmfv"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d2f6p0el32dmfv",
+                    "type": "manual"
+                }
+            }
+        }
     }
-  }
 }

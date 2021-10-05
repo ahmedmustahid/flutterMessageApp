@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 Widget getChatDetailsAppBar({
   required BuildContext context,
-  required String img,
+  //required String img,
   required String name,
   required bool inSelectMode,
   required int selectedChatCount,

@@ -1,6 +1,7 @@
 import 'package:chat/models/chat_room_model.dart';
 import 'package:chat/notifiers/providers.dart';
 import 'package:chat/notifiers/update_user_data_notifier.dart';
+import 'package:chat/screens/messages/chat_detail_page.dart';
 import 'package:chat/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -121,7 +122,7 @@ class _ChatPageState extends State<ChatPage> {
 
 class UserChatCard extends StatelessWidget {
   const UserChatCard({
-    required Key key,
+    Key? key,
     required this.context,
     required this.size,
     required this.name,

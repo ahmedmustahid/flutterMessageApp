@@ -24,6 +24,8 @@ import 'package:flutter/foundation.dart';
 class ChatRoom extends Model {
   static const classType = const _ChatRoomModelType();
   final String id;
+  final String? _otherUserId;
+  final String? _otherUserName;
   final String? _userID;
   final String? _chatId;
   final String? _untitledfield;
@@ -34,6 +36,14 @@ class ChatRoom extends Model {
   @override
   String getId() {
     return id;
+  }
+  
+  String? get otherUserId {
+    return _otherUserId;
+  }
+  
+  String? get otherUserName {
+    return _otherUserName;
   }
   
   String? get userID {
@@ -48,11 +58,13 @@ class ChatRoom extends Model {
     return _untitledfield;
   }
   
-  const ChatRoom._internal({required this.id, userID, chatId, untitledfield}): _userID = userID, _chatId = chatId, _untitledfield = untitledfield;
+  const ChatRoom._internal({required this.id, otherUserId, otherUserName, userID, chatId, untitledfield}): _otherUserId = otherUserId, _otherUserName = otherUserName, _userID = userID, _chatId = chatId, _untitledfield = untitledfield;
   
-  factory ChatRoom({String? id, String? userID, String? chatId, String? untitledfield}) {
+  factory ChatRoom({String? id, String? otherUserId, String? otherUserName, String? userID, String? chatId, String? untitledfield}) {
     return ChatRoom._internal(
       id: id == null ? UUID.getUUID() : id,
+      otherUserId: otherUserId,
+      otherUserName: otherUserName,
       userID: userID,
       chatId: chatId,
       untitledfield: untitledfield);
@@ -67,6 +79,8 @@ class ChatRoom extends Model {
     if (identical(other, this)) return true;
     return other is ChatRoom &&
       id == other.id &&
+      _otherUserId == other._otherUserId &&
+      _otherUserName == other._otherUserName &&
       _userID == other._userID &&
       _chatId == other._chatId &&
       _untitledfield == other._untitledfield;
@@ -81,6 +95,8 @@ class ChatRoom extends Model {
     
     buffer.write("ChatRoom {");
     buffer.write("id=" + "$id" + ", ");
+    buffer.write("otherUserId=" + "$_otherUserId" + ", ");
+    buffer.write("otherUserName=" + "$_otherUserName" + ", ");
     buffer.write("userID=" + "$_userID" + ", ");
     buffer.write("chatId=" + "$_chatId" + ", ");
     buffer.write("untitledfield=" + "$_untitledfield");
@@ -89,9 +105,11 @@ class ChatRoom extends Model {
     return buffer.toString();
   }
   
-  ChatRoom copyWith({String? id, String? userID, String? chatId, String? untitledfield}) {
+  ChatRoom copyWith({String? id, String? otherUserId, String? otherUserName, String? userID, String? chatId, String? untitledfield}) {
     return ChatRoom(
       id: id ?? this.id,
+      otherUserId: otherUserId ?? this.otherUserId,
+      otherUserName: otherUserName ?? this.otherUserName,
       userID: userID ?? this.userID,
       chatId: chatId ?? this.chatId,
       untitledfield: untitledfield ?? this.untitledfield);
@@ -99,15 +117,19 @@ class ChatRoom extends Model {
   
   ChatRoom.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
+      _otherUserId = json['otherUserId'],
+      _otherUserName = json['otherUserName'],
       _userID = json['userID'],
       _chatId = json['chatId'],
       _untitledfield = json['untitledfield'];
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'userID': _userID, 'chatId': _chatId, 'untitledfield': _untitledfield
+    'id': id, 'otherUserId': _otherUserId, 'otherUserName': _otherUserName, 'userID': _userID, 'chatId': _chatId, 'untitledfield': _untitledfield
   };
 
   static final QueryField ID = QueryField(fieldName: "chatRoom.id");
+  static final QueryField OTHERUSERID = QueryField(fieldName: "otherUserId");
+  static final QueryField OTHERUSERNAME = QueryField(fieldName: "otherUserName");
   static final QueryField USERID = QueryField(fieldName: "userID");
   static final QueryField CHATID = QueryField(fieldName: "chatId");
   static final QueryField UNTITLEDFIELD = QueryField(fieldName: "untitledfield");
@@ -127,6 +149,18 @@ class ChatRoom extends Model {
     ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: ChatRoom.OTHERUSERID,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: ChatRoom.OTHERUSERNAME,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: ChatRoom.USERID,
