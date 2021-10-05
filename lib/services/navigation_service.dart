@@ -17,8 +17,7 @@ class NavigationService {
   }
 
   /// Pop all the screen/routes from stack and add the current screen.
-  Future<dynamic> popAllAndReplace(
-      {required String routeName, required dynamic arguments}) {
+  Future<dynamic> popAllAndReplace(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!.pushNamedAndRemoveUntil(
         routeName, (Route<dynamic> route) => false,
         arguments: arguments);

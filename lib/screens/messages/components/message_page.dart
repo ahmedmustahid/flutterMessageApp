@@ -15,8 +15,26 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  // late ScrollController _controller;
+  // _scrollListener() {
+  //   if (_controller.offset >= _controller.position.maxScrollExtent &&
+  //       !_controller.position.outOfRange) {
+  //     setState(() {
+  //       //you can do anything here
+  //     });
+  //   }
+  //   if (_controller.offset <= _controller.position.minScrollExtent &&
+  //       !_controller.position.outOfRange) {
+  //     setState(() {
+  //       //you can do anything here
+  //     });
+  //   }
+  // }
+
   @override
   void initState() {
+    // _controller = ScrollController();
+    // _controller.addListener(_scrollListener);
     super.initState();
   }
 
@@ -41,6 +59,7 @@ class _MessagePageState extends State<MessagePage> {
 
   Widget getBody() {
     return ListView(
+      //controller: _controller,
       children: [
         Padding(
           padding: EdgeInsets.only(top: 15, right: 15, left: 15),
