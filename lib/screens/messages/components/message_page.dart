@@ -1,7 +1,7 @@
 import 'package:chat/models/chat_room_model.dart';
 import 'package:chat/notifiers/providers.dart';
 import 'package:chat/notifiers/update_user_data_notifier.dart';
-import 'package:chat/screens/messages/chat_detail_page.dart';
+import 'package:chat/screens/messages/components/message_body.dart';
 import 'package:chat/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,12 +9,12 @@ import 'package:flutter_riverpod/src/provider.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ChatPage extends StatefulWidget {
+class MessagePage extends StatefulWidget {
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _MessagePageState createState() => _MessagePageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _MessagePageState extends State<MessagePage> {
   @override
   void initState() {
     super.initState();
@@ -32,16 +32,10 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: bgColor,
-        body: SmartRefresher(
-          enablePullDown: true,
-          enablePullUp: true,
-          header: MaterialClassicHeader(color: Colors.white),
-          controller: _refreshController,
-          onRefresh: _onRefresh,
-          child: getBody(),
-        ),
-      ),
+          backgroundColor: bgColor,
+          body: Container(
+            child: getBody(),
+          )),
     );
   }
 
@@ -141,7 +135,7 @@ class UserChatCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ChatDetailPage(
+            builder: (_) => MessagePageBody(
               name: name,
               chatId: chatId,
             ),

@@ -1,6 +1,7 @@
 import 'package:chat/components/primary_button.dart';
 import 'package:chat/constants.dart';
 import 'package:chat/screens/chats/chats_screen.dart';
+import 'package:chat/screens/messages/components/message_page.dart';
 import 'package:chat/screens/messages/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -27,7 +28,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                 text: "Sign In",
                 color: Colors.blue,
                 press: () => Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => MessagesScreen()),
+                  MaterialPageRoute(builder: (context) => MessagePage()),
                   (route) => false,
                 ),
                 // Navigator.push(

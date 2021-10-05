@@ -1,5 +1,5 @@
 import 'package:chat/constants.dart';
-import 'package:chat/screens/messages/components/body.dart';
+import 'package:chat/screens/messages/components/message_body.dart';
 import 'package:chat/screens/messages/components/visualization_screen.dart';
 import 'package:chat/screens/messages/message_screen.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';

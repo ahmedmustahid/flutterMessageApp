@@ -21,8 +21,10 @@ class AmplifyService {
     } catch (e) {
       print(
           "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
+
+      print(e);
     }
   }
 }
 
-final test = AmplifyService();
+//final test = AmplifyService();
