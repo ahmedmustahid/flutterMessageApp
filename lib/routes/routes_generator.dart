@@ -1,5 +1,6 @@
 import 'package:chat/routes/routes_path.dart';
 import 'package:chat/screens/signinOrSignUp/register_screen.dart';
+import 'package:chat/screens/signinOrSignUp/signin_screen.dart';
 import 'package:chat/screens/welcome/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case RoutePath.Wrapper:
       return MaterialPageRoute(builder: (_) => Wrapper());
 
-    // case RoutePath.Login:
-    //   return MaterialPageRoute(builder: (_) => LoginScreen());
+    case RoutePath.Login:
+      return MaterialPageRoute(builder: (_) => LoginScreen());
 
     case RoutePath.Register:
       return MaterialPageRoute(builder: (_) => RegisterScreen());
@@ -29,8 +30,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //     ),
     //   );
 
-    // case RoutePath.Home:
-    //   return MaterialPageRoute(builder: (_) => HomeScreen());
+    case RoutePath.Home:
+      return MaterialPageRoute(builder: (_) => HomeScreen());
 
     default:
       return MaterialPageRoute(builder: (_) => Wrapper());

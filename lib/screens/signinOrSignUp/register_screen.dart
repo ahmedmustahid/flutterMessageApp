@@ -73,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SecondaryButton(
                   text: "Sign In",
                   onPress: () {
+                    print('pressing sign in');
                     _navigationService.popAllAndReplace(RoutePath.Login);
                   },
                 ),
@@ -131,6 +132,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               builder: (_, watch, __) {
                 final state =
                     watch(signupWithEmailNotifierProvider); //removed .state
+                print('state $state');
+                //print('statebool $(state is SignupWithEmailLoading)');
                 if (state is SignupWithEmailLoading)
                   return Center(child: CircularProgressIndicator());
                 else if (state is SignupWithEmailInitial)
@@ -144,17 +147,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  PrimaryButton buildRegisterButton() {
-    return PrimaryButton(
-      text: "Register",
-      press: () async {
-        if (!formKey.currentState!.validate()) return;
-        context.read(signupWithEmailNotifierProvider).signup(
-              emailCtrl.text,
-              passwordCtrl.text,
-              nameCtrl.text,
-            );
-      },
+  Widget buildRegisterButton() {
+    return Container(
+      width: SizeConfig.screenWidth,
+      height: 50.toHeight,
+      child: TextButton(
+        onPressed: () async {
+          if (!formKey.currentState!.validate()) return;
+          context
+              .read(signupWithEmailNotifierProvider.notifier)
+              .signup(emailCtrl.text, passwordCtrl.text, nameCtrl.text);
+        },
+        child: Text(
+          "Signup",
+          style: TextStyle(
+            fontSize: 20.toFont,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0.toWidth),
+            ),
+          ),
+        ),
+      ),
     );
   }
+
+  // PrimaryButton buildRegisterButton() {
+  //   return PrimaryButton(
+  //     text: "Register",
+  //     press: () async {
+  //       if (!formKey.currentState!.validate()) return;
+  //       context.read(signupWithEmailNotifierProvider).signup(
+  //             emailCtrl.text,
+  //             passwordCtrl.text,
+  //             nameCtrl.text,
+  //           );
+  //     },
+  //   );
+  // }
 }

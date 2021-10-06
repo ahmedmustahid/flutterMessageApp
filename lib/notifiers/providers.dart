@@ -8,12 +8,16 @@ import 'package:chat/notifiers/update_user_data_notifier.dart';
 import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/repositories/chat_repository.dart';
 import 'package:chat/repositories/user_repository.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Auth repository
 final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => AuthRepositoryClass(),
 );
+
+// final loginWithUsernameProvider = StateNotifierProvider(
+//   (ref) => LoginWithUsernameNotifier(ref.watch(authRepositoryProvider)),
+// );
 
 /// User repository
 final userRepositoryProvider = Provider<UserRepository>(
@@ -52,6 +56,7 @@ final currUserProvider = Provider<UserModel>((ref) {
   return currUser;
 });
 
-final signupWithEmailNotifierProvider = StateNotifierProvider(
+final signupWithEmailNotifierProvider =
+    StateNotifierProvider<SignupWithEmailNotifier, SignupWithEmailState>(
   (ref) => SignupWithEmailNotifier(ref.watch(authRepositoryProvider)),
 );

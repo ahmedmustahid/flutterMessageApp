@@ -1,6 +1,6 @@
 import 'package:chat/models/user_model.dart';
 import 'package:chat/repositories/user_repository.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UpdateUserDataNotifier extends StateNotifier<UpdateUserDataState> {
   final UserRepository _userRepository;

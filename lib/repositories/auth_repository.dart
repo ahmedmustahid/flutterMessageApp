@@ -41,7 +41,7 @@ class AuthRepositoryClass implements AuthRepository {
     String name,
   ) async {
     try {
-      Map<String, String> userAttributes = {'name': name};
+      Map<String, String> userAttributes = {'email': email};
       await Amplify.Auth.signUp(
         username: email,
         password: password,

@@ -251,6 +251,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0+3"
+  flutter_state_notifier:
+    dependency: "direct main"
+    description:
+      name: flutter_state_notifier
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -373,6 +380,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   octo_image:
     dependency: transitive
     description:
@@ -471,6 +485,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.1"
   pull_to_refresh:
     dependency: "direct main"
     description:

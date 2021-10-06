@@ -1,5 +1,5 @@
 import 'package:chat/repositories/auth_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 
 class LoginWithUsernameNotifier extends StateNotifier<LoginWithUsernameState> {
   final AuthRepository _authRepository;

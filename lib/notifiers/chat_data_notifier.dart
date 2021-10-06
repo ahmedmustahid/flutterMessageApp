@@ -1,6 +1,6 @@
 import 'package:chat/models/chat_model.dart';
 import 'package:chat/repositories/chat_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 
 class ChatDataNotifier extends StateNotifier<ChatDataState> {
   final ChatRepository _chatRepository;

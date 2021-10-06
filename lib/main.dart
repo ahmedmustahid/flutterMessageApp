@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
         ),
         navigatorKey: get_it_instance_const<NavigationService>().navigatorKey,
         onGenerateRoute: generateRoute,
-        initialRoute: RoutePath.Register,
+        initialRoute: RoutePath.Login,
       ),
     );
   }
