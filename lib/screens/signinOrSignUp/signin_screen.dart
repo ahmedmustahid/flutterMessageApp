@@ -33,9 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // Future(() async {
-    //   _signOut();
-    // });
+    Future(() async {
+      await _signOut();
+    });
   }
 
   @override
@@ -46,40 +46,40 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Future<void> _signOut() async {
-  //   final isSignedIn = await _checkSession();
-  //   if (isSignedIn) {
-  //     try {
-  //       Amplify.Auth.signOut();
-  //       print('signed out');
-  //     } on AuthException catch (e) {
-  //       print(e.message);
-  //     }
-  //   } else {
-  //     print('not signed in');
-  //   }
-  // }
+  Future<void> _signOut() async {
+    final isSignedIn = await _checkSession();
+    if (isSignedIn) {
+      try {
+        Amplify.Auth.signOut();
+        print('signed out');
+      } on AuthException catch (e) {
+        print(e.message);
+      }
+    } else {
+      print('not signed in');
+    }
+  }
 
-  // Future<bool> _checkSession() async {
-  //   final currentSession = await _fetchSession();
-  //   if (currentSession!.isSignedIn) {
-  //     return true;
-  //   } else
-  //     return false;
-  // }
+  Future<bool> _checkSession() async {
+    final currentSession = await _fetchSession();
+    if (currentSession!.isSignedIn) {
+      return true;
+    } else
+      return false;
+  }
 
-  // Future<AuthSession?> _fetchSession() async {
-  //   try {
-  //     AuthSession res = await Amplify.Auth.fetchAuthSession(
-  //       options: CognitoSessionOptions(getAWSCredentials: true),
-  //     );
-  //     String identityId = (res as CognitoAuthSession).identityId!;
-  //     print('identityId: $identityId');
-  //     return res;
-  //   } on AuthException catch (e) {
-  //     print(e.message);
-  //   }
-  // }
+  Future<AuthSession?> _fetchSession() async {
+    try {
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
+      );
+      String identityId = (res as CognitoAuthSession).identityId!;
+      print('identityId: $identityId');
+      return res;
+    } on AuthException catch (e) {
+      print(e.message);
+    }
+  }
 
   Widget getBody() {
     return SingleChildScrollView(

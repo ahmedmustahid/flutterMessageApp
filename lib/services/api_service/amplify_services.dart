@@ -4,7 +4,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/amplifyconfiguration.dart';
 
 class AmplifyService {
-  static void configureAmplify() {
+  static Future<void> configureAmplify() async {
     // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
     AmplifyAPI apiPlugin = AmplifyAPI();
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
@@ -14,12 +14,12 @@ class AmplifyService {
     //print('added plugins');
 
     try {
-      Amplify.addPlugins([
+      await Amplify.addPlugins([
         // amplifyStorageS3,
         authPlugin,
         apiPlugin,
       ]);
-      Amplify.configure(amplifyconfig);
+      await Amplify.configure(amplifyconfig);
       print('configured amplify');
     } catch (e) {
       print(
