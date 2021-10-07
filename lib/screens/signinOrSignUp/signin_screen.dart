@@ -1,3 +1,5 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/components/primary_button.dart';
 import 'package:chat/components/show_snackbar.dart';
 import 'package:chat/components/username_login_button.dart';
@@ -31,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    // Future(() async {
+    //   _signOut();
+    // });
   }
 
   @override
@@ -40,6 +45,41 @@ class _LoginScreenState extends State<LoginScreen> {
       body: getBody(),
     );
   }
+
+  // Future<void> _signOut() async {
+  //   final isSignedIn = await _checkSession();
+  //   if (isSignedIn) {
+  //     try {
+  //       Amplify.Auth.signOut();
+  //       print('signed out');
+  //     } on AuthException catch (e) {
+  //       print(e.message);
+  //     }
+  //   } else {
+  //     print('not signed in');
+  //   }
+  // }
+
+  // Future<bool> _checkSession() async {
+  //   final currentSession = await _fetchSession();
+  //   if (currentSession!.isSignedIn) {
+  //     return true;
+  //   } else
+  //     return false;
+  // }
+
+  // Future<AuthSession?> _fetchSession() async {
+  //   try {
+  //     AuthSession res = await Amplify.Auth.fetchAuthSession(
+  //       options: CognitoSessionOptions(getAWSCredentials: true),
+  //     );
+  //     String identityId = (res as CognitoAuthSession).identityId!;
+  //     print('identityId: $identityId');
+  //     return res;
+  //   } on AuthException catch (e) {
+  //     print(e.message);
+  //   }
+  // }
 
   Widget getBody() {
     return SingleChildScrollView(

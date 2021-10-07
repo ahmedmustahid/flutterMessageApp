@@ -21,9 +21,9 @@ abstract class UserRepository {
 class UserRepositoryClass implements UserRepository {
   late AuthRepositoryClass _authRepository;
 
-  // UserRepositoryClass() {
-  //   _authRepository = AuthRepositoryClass();
-  // }
+  UserRepositoryClass() {
+    _authRepository = AuthRepositoryClass();
+  }
 
   @override
   late List<UserModel> userChatList;
@@ -37,6 +37,7 @@ class UserRepositoryClass implements UserRepository {
       final data = await _authRepository.getUserFromGraphql();
       UserModel user = UserModel.fromJson(data['getUser']);
       currUser = user;
+      print('inside getCurrUser user is $user');
       return user;
     } catch (e) {
       print(e.toString());

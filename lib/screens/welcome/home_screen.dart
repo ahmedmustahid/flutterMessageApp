@@ -1,5 +1,6 @@
 import 'package:chat/notifiers/providers.dart';
 import 'package:chat/screens/messages/components/message_page.dart';
+import 'package:chat/services/api_service/amplify_services.dart';
 import 'package:chat/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/provider.dart';
@@ -18,13 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    print('initialized');
     fetchData();
   }
 
   fetchData() async {
     await context.read(userRepositoryProvider).getCurrUser();
     await context.read(userRepositoryProvider).getAllOtherUser();
-
+    print("inside fetchdata");
     if (mounted) {
       setState(() {
         isLoading = false;
@@ -106,3 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+// try {
+//         Amplify.Auth.signOut();
+//         print('signed out');
+//       } on AuthException catch (e) {
+//         print(e.message);
+//       }
