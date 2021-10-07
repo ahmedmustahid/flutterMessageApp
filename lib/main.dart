@@ -28,10 +28,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Future(() async {
-      await AmplifyService.configureAmplify();
-      //await _signOut();
-    });
+    // Future(() async {
+    //   await AmplifyService.configureAmplify();
+    //   //await _signOut();
+    // });
     //await AmplifyService.configureAmplify();
     //_signOut();
   }

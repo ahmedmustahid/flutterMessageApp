@@ -7,6 +7,7 @@ import 'package:chat/notifiers/login_with_username_password_notifier.dart';
 import 'package:chat/notifiers/providers.dart';
 import 'package:chat/routes/routes_path.dart';
 import 'package:chat/screens/messages/components/login_text_field.dart';
+import 'package:chat/services/api_service/amplify_services.dart';
 import 'package:chat/services/get_it_service.dart';
 import 'package:chat/services/navigation_service.dart';
 import 'package:chat/services/size_config.dart';
@@ -34,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     Future(() async {
+      await AmplifyService.configureAmplify();
       await _signOut();
     });
   }
