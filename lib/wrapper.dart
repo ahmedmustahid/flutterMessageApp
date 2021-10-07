@@ -22,36 +22,36 @@ class _WrapperState extends State<Wrapper> {
     handleNavigation();
   }
 
-  // handleNavigation() async {
-  //   AuthSession authSessions = await Amplify.Auth.fetchAuthSession();
-  //   print('navigation handler before signed in');
-  //   if (authSessions.isSignedIn) {
-  //     print('is signed in');
-  //     //await Amplify.Auth.signOut();
-  //     // try {
-  //     //   Amplify.Auth.signOut();
-  //     //   print('signed out');
-  //     // } on AuthException catch (e) {
-  //     //   print(e.message);
-  //     // }
-  //     _navigationService.popAllAndReplace(RoutePath.Home);
-  //   } else
-  //     _navigationService.popAllAndReplace(RoutePath.Register);
-  //   //_navigationService.popAllAndReplace(RoutePath.Splash);
-  // }
-
   handleNavigation() async {
-    try {
-      AuthSession res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: true),
-      );
-      String identityId = (res as CognitoAuthSession).identityId!;
-      print('identityId: $identityId');
-    } on AuthException catch (e) {
-      print(e.message);
-    }
-    _navigationService.popAllAndReplace(RoutePath.Register);
+    AuthSession authSessions = await Amplify.Auth.fetchAuthSession();
+    print('navigation handler before signed in');
+    if (authSessions.isSignedIn) {
+      print('is signed in');
+      //await Amplify.Auth.signOut();
+      // try {
+      //   Amplify.Auth.signOut();
+      //   print('signed out');
+      // } on AuthException catch (e) {
+      //   print(e.message);
+      // }
+      _navigationService.popAllAndReplace(RoutePath.Home);
+    } else
+      _navigationService.popAllAndReplace(RoutePath.Register);
+    //_navigationService.popAllAndReplace(RoutePath.Splash);
   }
+
+  // handleNavigation() async {
+  //   try {
+  //     AuthSession res = await Amplify.Auth.fetchAuthSession(
+  //       options: CognitoSessionOptions(getAWSCredentials: true),
+  //     );
+  //     String identityId = (res as CognitoAuthSession).identityId!;
+  //     print('identityId: $identityId');
+  //   } on AuthException catch (e) {
+  //     print(e.message);
+  //   }
+  //   _navigationService.popAllAndReplace(RoutePath.Register);
+  // }
 
   @override
   Widget build(BuildContext context) {

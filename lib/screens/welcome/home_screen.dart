@@ -20,7 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     print('initialized');
-    fetchData();
+    Future(() async {
+      await fetchData();
+    });
+    //fetchData();
   }
 
   fetchData() async {

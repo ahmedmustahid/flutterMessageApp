@@ -37,6 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
     Future(() async {
       await AmplifyService.configureAmplify();
       await _signOut();
+      //await Amplify.Auth.signOut();
+      //await Amplify.Auth.fetchAuthSession();
+      //await _checkSession();
     });
   }
 
@@ -63,25 +66,25 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<bool> _checkSession() async {
-    final currentSession = await _fetchSession();
-    if (currentSession!.isSignedIn) {
+    final currentSession = await Amplify.Auth.fetchAuthSession();
+    if (currentSession.isSignedIn) {
       return true;
     } else
       return false;
   }
 
-  Future<AuthSession?> _fetchSession() async {
-    try {
-      AuthSession res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: true),
-      );
-      String identityId = (res as CognitoAuthSession).identityId!;
-      print('identityId: $identityId');
-      return res;
-    } on AuthException catch (e) {
-      print(e.message);
-    }
-  }
+  // Future<AuthSession?> _fetchSession() async {
+  //   try {
+  //     AuthSession res = await Amplify.Auth.fetchAuthSession(
+  //       options: CognitoSessionOptions(getAWSCredentials: true),
+  //     );
+  //     String identityId = (res as CognitoAuthSession).identityId!;
+  //     print('identityId: $identityId');
+  //     return res;
+  //   } on AuthException catch (e) {
+  //     print(e.message);
+  //   }
+  // }
 
   Widget getBody() {
     return SingleChildScrollView(
@@ -143,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         //getNameBottomSheet(context);
                         print('no such username exists');
                       } else {
+                        //print();
                         _navigationService.popAllAndReplace(RoutePath.Home);
                       }
                     }
