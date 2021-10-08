@@ -10,17 +10,17 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: Padding(
-            //the following code may cause error
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            // child: ListView.builder(
-            //   itemCount: demeChatMessages.length,
-            //   itemBuilder: (context, index) =>
-            //       Message(message: demeChatMessages[index]),
-            // ),
-          ),
-        ),
+        // Expanded(
+        //   child: Padding(
+        //     //the following code may cause error
+        //     padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        //     child: ListView.builder(
+        //       itemCount: demeChatMessages.length,
+        //       itemBuilder: (context, index) =>
+        //           Message(message: demeChatMessages[index]),
+        //     ),
+        //   ),
+        // ),
         ChatInputField(),
       ],
     );

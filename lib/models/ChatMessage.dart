@@ -16,18 +16,18 @@ class ChatMessage {
 }
 
 List demeChatMessages = [
-  // ChatMessage(
-  //   text: "Hi sup,",
-  //   messageType: ChatMessageType.text,
-  //   messageStatus: MessageStatus.viewed,
-  //   isSender: true,
-  // ),
-  // ChatMessage(
-  //   text: "Hello, How are you?",
-  //   messageType: ChatMessageType.text,
-  //   messageStatus: MessageStatus.viewed,
-  //   isSender: true,
-  // ),
+  ChatMessage(
+    text: "Hi sup,",
+    messageType: ChatMessageType.text,
+    messageStatus: MessageStatus.viewed,
+    isSender: true,
+  ),
+  ChatMessage(
+    text: "Hello, How are you?",
+    messageType: ChatMessageType.text,
+    messageStatus: MessageStatus.viewed,
+    isSender: true,
+  ),
   // ChatMessage(
   //   text: "",
   //   messageType: ChatMessageType.audio,
