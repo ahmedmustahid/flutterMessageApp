@@ -1,3 +1,4 @@
+import 'package:chat/screens/messages/message_screen.dart';
 import 'package:chat/screens/welcome/welcome_screen.dart';
 import 'package:chat/theme.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
-      home: WelcomeScreen(),
+      home: MessagesScreen(),
+      //home: WelcomeScreen(),
     );
   }
 }
