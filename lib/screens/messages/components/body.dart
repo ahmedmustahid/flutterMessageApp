@@ -28,6 +28,24 @@ class _BodyState extends State<Body> {
     print('text field: ${_textEditingController.text}');
   }
 
+  _addMessage() {
+    ChatMessage newMessage = ChatMessage(
+        messageContent: _textEditingController.text.trim(),
+        messageType: "sender");
+    setState(() {
+      //messages.add(newMessage);
+      if (newMessage.messageContent.isNotEmpty) {
+        messages = [...messages, newMessage];
+      }
+      Timer(
+          Duration(milliseconds: 30),
+          () => _scrollcontroller
+              .jumpTo(_scrollcontroller.position.maxScrollExtent));
+    });
+    _textEditingController.clear();
+    FocusScope.of(context).unfocus();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +79,7 @@ class _BodyState extends State<Body> {
       //fit: StackFit.passthrough,
       children: <Widget>[
         ListView.builder(
+          controller: _scrollcontroller,
           itemCount: messages.length,
           shrinkWrap: true,
           padding: EdgeInsets.only(top: 10, bottom: 10),
@@ -109,6 +128,7 @@ class _BodyState extends State<Body> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      //onSubmitted: _addMessage(),
                       controller: _textEditingController,
                       decoration: InputDecoration(
                         hintText: "Write message...",
@@ -122,19 +142,7 @@ class _BodyState extends State<Body> {
                   ),
                   FloatingActionButton(
                     onPressed: () {
-                      ChatMessage newMessage = ChatMessage(
-                          messageContent: _textEditingController.text,
-                          messageType: "sender");
-                      setState(() {
-                        //messages.add(newMessage);
-                        messages = [...messages, newMessage];
-                        Timer(
-                            Duration(milliseconds: 30),
-                            () => _scrollcontroller.jumpTo(
-                                _scrollcontroller.position.maxScrollExtent));
-                      });
-                      _textEditingController.clear();
-                      FocusScope.of(context).unfocus();
+                      _addMessage();
                     },
                     child: Icon(
                       Icons.send,
