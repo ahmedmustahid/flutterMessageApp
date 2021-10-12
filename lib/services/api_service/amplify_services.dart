@@ -10,13 +10,13 @@ class AmplifyService {
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
 
     // AmplifyStorageS3 amplifyStorageS3 = AmplifyStorageS3();
-    Amplify.addPlugins([
-      // amplifyStorageS3,
-      authPlugin,
-      apiPlugin,
-    ]);
 
     try {
+      Amplify.addPlugins([
+        // amplifyStorageS3,
+        authPlugin,
+        apiPlugin,
+      ]);
       await Amplify.configure(amplifyconfig);
     } catch (e) {
       print(

@@ -10,6 +10,23 @@
       "StackName": "amplify-fluttermessageapp-dev-131939",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:906756132937:stack/amplify-fluttermessageapp-dev-131939/a2d41050-21a5-11ec-9097-0ead9c7fd213",
       "AmplifyAppId": "d2f6p0el32dmfv"
+    },
+    "categories": {
+      "auth": {
+        "fluttermessageapp065b4e0b": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2f6p0el32dmfv",
+          "type": "manual"
+        }
+      },
+      "function": {
+        "todoFlutterMessage": {
+          "deploymentBucketName": "amplify-fluttermessageapp-dev-131939-deployment",
+          "s3Key": "amplify-builds/todoFlutterMessage-755853766d64492b706e-build.zip"
+        }
+      }
     }
   }
 }

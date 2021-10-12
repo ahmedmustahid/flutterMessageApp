@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/todo",
+      "lambdaFunction": "todoFlutterMessage",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/todo"
+    }
+  ],
+  "resourceName": "flutterMessageREST",
+  "apiName": "flutterMessageREST",
+  "functionArns": [
+    {
+      "lambdaFunction": "todoFlutterMessage"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-fluttermessageapp-dev-131939-authRole",
+    "unAuthRoleName": "amplify-fluttermessageapp-dev-131939-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "todoFlutterMessage",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}
