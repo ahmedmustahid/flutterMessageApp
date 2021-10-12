@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
     try {
       RestOptions options = RestOptions(
           path: '/todo',
-          body: Uint8List.fromList('{\'name\':\'Mow the lawn\'}'.codeUnits));
+          body: Uint8List.fromList('{\'key1\':\'Mow the lawn\'}'.codeUnits));
       RestOperation restOperation = Amplify.API.post(restOptions: options);
       RestResponse response = await restOperation.response;
       print('POST call succeeded');
@@ -57,6 +57,10 @@ class _MyAppState extends State<MyApp> {
     }
     // Edit this function with next steps.
   }
+
+  // void _postRequest() {
+
+  // }
 
   @override
   Widget build(BuildContext context) {
