@@ -84,7 +84,7 @@ class _BodyState extends State<Body> {
           shrinkWrap: true,
           padding: EdgeInsets.only(top: 10, bottom: 10),
           scrollDirection: Axis.vertical,
-          //physics: const AlwaysScrollableScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           //physics: (),
           //physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
@@ -128,6 +128,8 @@ class _BodyState extends State<Body> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      autocorrect: true,
+                      enableSuggestions: true,
                       //onSubmitted: _addMessage(),
                       controller: _textEditingController,
                       decoration: InputDecoration(
