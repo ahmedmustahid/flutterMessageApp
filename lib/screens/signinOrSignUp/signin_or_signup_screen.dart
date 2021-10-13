@@ -15,7 +15,7 @@ class SigninOrSignupScreen extends StatelessWidget {
           child: Column(
             children: [
               Spacer(flex: 2),
-              Lottie.asset("assets/images/76432-floating-orange-robot.json"),
+              //Lottie.asset("assets/images/76432-floating-orange-robot.json"),
               // Image.asset(
               //   MediaQuery.of(context).platformBrightness == Brightness.light
               //       ? "assets/images/.png"

@@ -9,6 +9,7 @@ import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:chat/screens/messages/components/visualization_screen.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'components/body.dart';
 
@@ -16,8 +17,15 @@ class MessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
+      //appBar: buildAppBar(context),// App Bar を透過させるために必要.
+      appBar: AppBar(
+          elevation: 0, // App Bar を透過させるために必要.
+          backgroundColor: Colors.transparent, // App Bar を透過させるために必要.
+          brightness: Brightness.dark // change the status bar color
+          ),
+      extendBodyBehindAppBar: true, // App Bar を透過させるために必要.
       body: Body(),
+      //backgroundColor: Colors.grey,
     );
   }
 
@@ -28,12 +36,15 @@ class MessagesScreen extends StatelessWidget {
         children: [
           //BackButton(),
           CircleAvatar(
+              // "z" の丸アイコン
               //backgroundImage: AssetImage("assets/images/user_2.png"),
               radius: 14,
               backgroundColor: Colors.brown.shade800,
               child: const Text('Z')),
           SizedBox(width: kDefaultPadding * 0.75),
+
           Column(
+            // "z" の丸アイコンの右側にあるテキスト表示
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -41,9 +52,41 @@ class MessagesScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
             ],
-          )
+          ),
+          /*
+          Center(
+              child: IconButton(
+                icon: Image.asset('assets/images/connectdevelop.png'),
+                onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ScatterChartSample1())),
+          )),
+          */
+          /*
+          IconButton(
+              icon: Image.asset('assets/images/connectdevelop.png'),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ScatterChartSample1()))),
+          IconButton(
+            icon: Image.asset('assets/images/logout_small.png'),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SigninOrSignupScreen())),
+          ),
+          */
         ],
       ),
+      /*
+      leading: IconButton(
+          icon: Image.asset('assets/images/connectdevelop.png'),
+          onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ScatterChartSample1()))),
+      actions: <Widget>[
+        IconButton(
+          icon: Image.asset('assets/images/logout_small.png'),
+          onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SigninOrSignupScreen())),
+        ),
+      ],
+      */
       actions: <Widget>[
         //PopUpMenu(),
         PopupMenuButton<MenuItem>(
@@ -52,6 +95,7 @@ class MessagesScreen extends StatelessWidget {
                   ...MenuItems.itemsFirst.map(buildItem).toList(),
                 ]),
       ],
+
       //IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_outlined))
     );
   }

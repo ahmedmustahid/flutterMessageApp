@@ -4,11 +4,14 @@ import 'dart:async';
 
 import 'package:chat/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:chat/screens/messages/components/visualization_screen.dart';
+import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
 //import 'dart:math' as math;
 //import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //import 'chat_input_field.dart';
 //import 'message.dart';
+
 class ChatMessage {
   String messageContent;
   String messageType;
@@ -78,85 +81,151 @@ class _BodyState extends State<Body> {
     return Stack(
       //fit: StackFit.passthrough,
       children: <Widget>[
-        ListView.builder(
-          controller: _scrollcontroller,
-          itemCount: messages.length,
-          shrinkWrap: true,
-          padding: EdgeInsets.only(top: 10, bottom: 10),
-          scrollDirection: Axis.vertical,
-          physics: BouncingScrollPhysics(),
-          //physics: (),
-          //physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return Container(
-              padding:
-                  EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
-              child: Align(
-                alignment: (messages[index].messageType == "receiver"
-                    ? Alignment.topLeft
-                    : Alignment.topRight),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: (messages[index].messageType == "receiver"
-                        ? Colors.grey.shade200
-                        : Colors.blue[200]),
+        new Container(
+          // 背景画像表示. Stack の最初に配置.
+          decoration: new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(top: 24)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // 両端に寄せ
+              children: [
+                Container(width: 40.0, height: 0.0),
+                IconButton(
+                    icon: Image.asset('assets/images/connectdevelop.png'),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ScatterChartSample1()))),
+                SizedBox(
+                  height: 32.0,
+                  width: 32.0,
+                  child: IconButton(
+                    icon: Image.asset('assets/images/logout.png'),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => SigninOrSignupScreen())),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    messages[index].messageContent,
-                    style: TextStyle(fontSize: 15),
-                  ),
+                )
+              ],
+            ),
+            Expanded(
+              child: new Container(
+                child: ListView.builder(
+                  controller: _scrollcontroller,
+                  itemCount: messages.length,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(top: 0, bottom: 0),
+                  scrollDirection: Axis.vertical,
+                  physics: BouncingScrollPhysics(),
+                  //physics: (),
+                  //physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      color: Color.fromRGBO(70, 82, 97, 1),
+                      padding: EdgeInsets.only(
+                          left: 14, right: 14, top: 10, bottom: 10),
+                      child: Align(
+                        alignment: (messages[index].messageType == "receiver"
+                            ? Alignment.topLeft
+                            : Alignment.topRight),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: (messages[index].messageType == "receiver"
+                                ? Colors.grey.shade200
+                                : Color.fromRGBO(84, 131, 128, 1)),
+                          ),
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            messages[index].messageContent,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: (messages[index].messageType == "receiver"
+                                  ? Colors.black
+                                  : Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            );
-          },
-        ),
-        Padding(padding: EdgeInsets.all(16)),
-        Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: kDefaultPadding,
-                vertical: kDefaultPadding / 2,
-              ),
-              //padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-              height: 60,
-              width: double.infinity,
-              color: Colors.white,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      autocorrect: true,
-                      enableSuggestions: true,
-                      //onSubmitted: _addMessage(),
-                      controller: _textEditingController,
-                      decoration: InputDecoration(
-                        hintText: "Write message...",
-                        hintStyle: TextStyle(color: Colors.black54),
-                        border: InputBorder.none,
+            ),
+            //Padding(padding: EdgeInsets.all(16)),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10, //kDefaultPadding,
+                    vertical: kDefaultPadding / 2,
+                  ),
+                  //padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  height: 60,
+                  width: double.infinity,
+                  //color: Colors.grey, // 下部テキストボックスの色
+                  child: Row(
+                    //mainAxisAlignment: MainAxisAlignment
+                    //    .spaceBetween, // これで両端に寄せる (参考 : https://qiita.com/yushimizu/items/481c88dd5a24ec21bb21)
+                    children: <Widget>[
+                      /*
+                      FloatingActionButton.small(
+                        onPressed: () {
+                          _addMessage();
+                        },
+                        child: Icon(
+                          Icons.send,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        backgroundColor: kPrimaryColor,
+                        elevation: 0,
                       ),
-                    ),
+                      */
+                      Expanded(
+                        child: TextField(
+                          autocorrect: true,
+                          enableSuggestions: true,
+                          //onSubmitted: _addMessage(),
+                          controller: _textEditingController,
+                          style: TextStyle(color: Colors.white), // 入力テキストの色
+                          decoration: InputDecoration(
+                            hintText: "  テキストを入力して下さい",
+                            hintStyle: TextStyle(color: Colors.white),
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: 2), // 上下中央揃え
+                            enabledBorder: new OutlineInputBorder(
+                              //borderRadius: new BorderRadius.circular(25.0),
+                              borderSide: BorderSide(
+                                color: Colors.white, // テキストボックスの縁の色
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 0, // テキストボックス右側の余白サイズ
+                      ),
+                      SizedBox(
+                        height: 48.0,
+                        width: 48.0,
+                        child: IconButton(
+                            icon: Image.asset(
+                              'assets/images/send.png',
+                            ),
+                            onPressed: () => _addMessage()),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      _addMessage();
-                    },
-                    child: Icon(
-                      Icons.send,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    backgroundColor: kPrimaryColor,
-                    elevation: 0,
-                  ),
-                ],
-              ),
-            )),
+                ))
+          ],
+        ),
       ],
     );
   }
