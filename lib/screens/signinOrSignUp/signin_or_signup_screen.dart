@@ -51,6 +51,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                         color: Color.fromRGBO(135, 202, 198, 1), // テキストボックスの縁の色
                       ),
                     ),
+                    prefix: Text('   '), // paddings の代わり
                   ),
                 ),
                 Padding(
@@ -85,6 +86,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                         color: Color.fromRGBO(135, 202, 198, 1), // テキストボックスの縁の色
                       ),
                     ),
+                    prefix: Text('   '), // paddings の代わり
                   ),
                   obscureText: true,
                 ),

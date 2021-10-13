@@ -183,8 +183,8 @@ class _BodyState extends State<Body> {
                             fillColor: Color.fromRGBO(35, 46, 60, 0.8),
                             hintText: "", //"  テキストを入力して下さい",
                             hintStyle: TextStyle(color: Colors.white),
-                            contentPadding:
-                                EdgeInsets.symmetric(vertical: 2), // 上下中央揃え
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 4), // 上下中央揃え
                             enabledBorder: new OutlineInputBorder(
                               //borderRadius: new BorderRadius.circular(25.0),
                               borderSide: BorderSide(
