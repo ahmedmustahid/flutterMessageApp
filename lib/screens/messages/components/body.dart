@@ -92,10 +92,11 @@ class _BodyState extends State<Body> {
         ),
         Column(
           children: <Widget>[
-            Padding(padding: EdgeInsets.only(top: 24)),
+            Padding(padding: EdgeInsets.only(top: 72)), // For App bar
+            /*
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // 両端に寄せ
-              children: [
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // 両端寄せ
+              children: <Widget>[
                 Container(width: 40.0, height: 0.0),
                 IconButton(
                     icon: Image.asset('assets/images/connectdevelop.png'),
@@ -114,20 +115,19 @@ class _BodyState extends State<Body> {
                 )
               ],
             ),
+            */
             Expanded(
               child: new Container(
+                color: Color.fromRGBO(70, 82, 97, 1),
                 child: ListView.builder(
                   controller: _scrollcontroller,
                   itemCount: messages.length,
                   shrinkWrap: true,
                   padding: EdgeInsets.only(top: 0, bottom: 0),
                   scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  //physics: (),
-                  //physics: NeverScrollableScrollPhysics(),
+                  physics: ClampingScrollPhysics(), // lock the over scroll
                   itemBuilder: (context, index) {
                     return Container(
-                      color: Color.fromRGBO(70, 82, 97, 1),
                       padding: EdgeInsets.only(
                           left: 14, right: 14, top: 10, bottom: 10),
                       child: Align(
@@ -171,23 +171,7 @@ class _BodyState extends State<Body> {
                   width: double.infinity,
                   //color: Colors.grey, // 下部テキストボックスの色
                   child: Row(
-                    //mainAxisAlignment: MainAxisAlignment
-                    //    .spaceBetween, // これで両端に寄せる (参考 : https://qiita.com/yushimizu/items/481c88dd5a24ec21bb21)
                     children: <Widget>[
-                      /*
-                      FloatingActionButton.small(
-                        onPressed: () {
-                          _addMessage();
-                        },
-                        child: Icon(
-                          Icons.send,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                        backgroundColor: kPrimaryColor,
-                        elevation: 0,
-                      ),
-                      */
                       Expanded(
                         child: TextField(
                           autocorrect: true,
@@ -196,7 +180,8 @@ class _BodyState extends State<Body> {
                           controller: _textEditingController,
                           style: TextStyle(color: Colors.white), // 入力テキストの色
                           decoration: InputDecoration(
-                            hintText: "  テキストを入力して下さい",
+                            fillColor: Color.fromRGBO(35, 46, 60, 0.8),
+                            hintText: "", //"  テキストを入力して下さい",
                             hintStyle: TextStyle(color: Colors.white),
                             contentPadding:
                                 EdgeInsets.symmetric(vertical: 2), // 上下中央揃え
