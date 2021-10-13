@@ -6,9 +6,9 @@ class MessageModel {
     required this.message,
     required this.createdAt,
   });
-  late final int id;
-  late final int userId;
-  late final String isMe;
+  late final String id;
+  late final String userId;
+  late final bool isMe;
   late final String message;
   late final String createdAt;
 

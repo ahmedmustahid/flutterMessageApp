@@ -3,17 +3,14 @@
 import 'dart:async';
 
 import 'package:chat/constants.dart';
+import 'package:chat/models/message_model.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 //import 'dart:math' as math;
 //import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //import 'chat_input_field.dart';
 //import 'message.dart';
-class ChatMessage {
-  String messageContent;
-  String messageType;
-  ChatMessage({required this.messageContent, required this.messageType});
-}
 
 class Body extends StatefulWidget {
   @override
@@ -29,12 +26,23 @@ class _BodyState extends State<Body> {
   }
 
   _addMessage() {
-    ChatMessage newMessage = ChatMessage(
-        messageContent: _textEditingController.text.trim(),
-        messageType: "sender");
+    // ChatMessage newMessage = ChatMessage(
+    //     messageContent: _textEditingController.text.trim(),
+    //     messageType: "sender");
+    var uuid = Uuid();
+    var messageId = uuid.v1();
+    String dateTimeNow = DateTime.now().toIso8601String();
+
+    MessageModel newMessage = MessageModel(
+        id: messageId,
+        userId: "1",
+        isMe: true,
+        message: _textEditingController.text.trim(),
+        createdAt: dateTimeNow);
+
     setState(() {
       //messages.add(newMessage);
-      if (newMessage.messageContent.isNotEmpty) {
+      if (newMessage.message.isNotEmpty) {
         messages = [...messages, newMessage];
       }
       Timer(
@@ -42,6 +50,8 @@ class _BodyState extends State<Body> {
           () => _scrollcontroller
               .jumpTo(_scrollcontroller.position.maxScrollExtent));
     });
+
+    print(newMessage.toJson().toString());
     _textEditingController.clear();
     FocusScope.of(context).unfocus();
   }
@@ -62,16 +72,7 @@ class _BodyState extends State<Body> {
     super.dispose();
   }
 
-  List<ChatMessage> messages = [
-    // ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    // ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    // ChatMessage(
-    //     messageContent: "Hey Kriss, I am doing fine dude. wbu?",
-    //     messageType: "sender"),
-    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(
-    //     messageContent: "Is there any thing wrong?", messageType: "sender"),
-  ];
+  List<MessageModel> messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -92,19 +93,19 @@ class _BodyState extends State<Body> {
               padding:
                   EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
               child: Align(
-                alignment: (messages[index].messageType == "receiver"
+                alignment: (messages[index].isMe == false
                     ? Alignment.topLeft
                     : Alignment.topRight),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: (messages[index].messageType == "receiver"
+                    color: (messages[index].isMe == false
                         ? Colors.grey.shade200
                         : Colors.blue[200]),
                   ),
                   padding: EdgeInsets.all(16),
                   child: Text(
-                    messages[index].messageContent,
+                    messages[index].message,
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
