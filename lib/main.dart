@@ -9,7 +9,31 @@ import 'package:chat/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 
+class TestName {
+  TestName({
+    required this.firstName,
+    required this.lastName,
+  });
+  late final String firstName;
+  late final String lastName;
+
+  TestName.fromJson(Map<String, dynamic> json) {
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['first_name'] = firstName;
+    _data['last_name'] = lastName;
+    return _data;
+  }
+}
+
 void main() {
+  // final myJson =
+  //     TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
+  // print(myJson);
   runApp(MyApp());
 }
 
@@ -44,6 +68,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onTestApi() async {
+    final myJson =
+        TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
     try {
       RestOptions options = RestOptions(
           path: '/todo',
