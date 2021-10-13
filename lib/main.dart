@@ -46,8 +46,10 @@ class _MyAppState extends State<MyApp> {
   void onTestApi() async {
     try {
       RestOptions options = RestOptions(
-          path: '/todo',
-          body: Uint8List.fromList('{\'key1\':\'Mow the lawn\'}'.codeUnits));
+          path: '/createperson',
+          body: Uint8List.fromList(
+              '{\'first_name\':\'John_flutter\',\'last_name\':\'Smith_flutter\'}'
+                  .codeUnits));
       RestOperation restOperation = Amplify.API.post(restOptions: options);
       RestResponse response = await restOperation.response;
       print('POST call succeeded');
