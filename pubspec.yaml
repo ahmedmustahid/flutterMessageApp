@@ -53,6 +53,7 @@ dependencies:
   bubble:
   get_it:
   intl:
+  device_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:
