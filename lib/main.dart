@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
@@ -68,18 +70,27 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onTestApi() async {
-    final myJson =
-        TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
+    // final myJson =
+    //   TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
+    final firstName = "John_flutter";
+    final lastName = "Smith_flutter";
     try {
       RestOptions options = RestOptions(
           path: '/todo',
           body: Uint8List.fromList(
-              '{\"first_name\":\"John_flutter\",\"last_name\":\"Smith_flutter\"}'
+              '{\"first_name\":\"$firstName\",\"last_name\":\"$lastName\"}'
                   .codeUnits));
       RestOperation restOperation = Amplify.API.post(restOptions: options);
       RestResponse response = await restOperation.response;
       print('POST call succeeded');
-      print(new String.fromCharCodes(response.data));
+
+      final responseFromREST = new String.fromCharCodes(response.data);
+      final myInstanceFromJson =
+          TestName.fromJson(jsonDecode(responseFromREST));
+      print('String response from REST is \n $responseFromREST');
+
+      print('firstName from JSON object ${myInstanceFromJson.firstName}');
+      print('lastName from JSON object ${myInstanceFromJson.lastName}');
     } on ApiException catch (e) {
       print('POST call failed: $e');
     }
