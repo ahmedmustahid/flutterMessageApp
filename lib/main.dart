@@ -20,15 +20,20 @@ class TestName {
   late final String lastName;
 
   TestName.fromJson(Map<String, dynamic> json) {
-    firstName = json['first_name'];
-    lastName = json['last_name'];
+    firstName = json["first_name"];
+    lastName = json["last_name"];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['first_name'] = firstName;
-    _data['last_name'] = lastName;
+    _data["first_name"] = firstName;
+    _data["last_name"] = lastName;
     return _data;
+  }
+
+  @override
+  String toString() {
+    return '{\"first_name\":\"$firstName\",\"last_name\":\"$lastName\"}';
   }
 }
 
@@ -74,12 +79,14 @@ class _MyAppState extends State<MyApp> {
     //   TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
     final firstName = "John_flutter";
     final lastName = "Smith_flutter";
+    TestName myTestName = TestName(firstName: firstName, lastName: lastName);
     try {
       RestOptions options = RestOptions(
           path: '/todo',
-          body: Uint8List.fromList(
-              '{\"first_name\":\"$firstName\",\"last_name\":\"$lastName\"}'
-                  .codeUnits));
+          body: Uint8List.fromList(myTestName
+              .toString()
+              //'{\"first_name\":\"$firstName\",\"last_name\":\"$lastName\"}'
+              .codeUnits));
       RestOperation restOperation = Amplify.API.post(restOptions: options);
       RestResponse response = await restOperation.response;
       print('POST call succeeded');
@@ -104,7 +111,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (_isAmplifyConfigured) {
-      onTestApi();
+      //onTestApi();
       print('ontest success');
     } else {
       print('ontest failed');

@@ -1,16 +1,9 @@
-//import 'package:chat/constants.dart';
-//import 'package:chat/models/ChatMessage.dart';
 import 'dart:async';
-
 import 'package:chat/constants.dart';
 import 'package:chat/models/message_model.dart';
+import 'package:chat/services/api_service/post_method_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-//import 'dart:math' as math;
-//import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-//import 'chat_input_field.dart';
-//import 'message.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -21,28 +14,29 @@ class _BodyState extends State<Body> {
   ScrollController _scrollcontroller = ScrollController();
   final TextEditingController _textEditingController = TextEditingController();
 
+  List<MessageModel> messages = [];
+  bool _receivedReply = false;
+
   void _printLatestValue() {
     print('text field: ${_textEditingController.text}');
   }
 
-  _addMessage() {
-    // ChatMessage newMessage = ChatMessage(
-    //     messageContent: _textEditingController.text.trim(),
-    //     messageType: "sender");
-    var uuid = Uuid();
-    var messageId = uuid.v1();
+  MessageModel _addMessage() {
+    var messageId = Uuid().v1();
+    var userId = "1";
+    var sessionId = "1";
     String dateTimeNow = DateTime.now().toIso8601String();
 
     MessageModel newMessage = MessageModel(
         id: messageId,
-        userId: "1",
+        userId: userId,
+        sessionId: sessionId,
         isMe: true,
-        message: _textEditingController.text.trim(),
+        messageContent: _textEditingController.text.trim(),
         createdAt: dateTimeNow);
 
     setState(() {
-      //messages.add(newMessage);
-      if (newMessage.message.isNotEmpty) {
+      if (newMessage.messageContent.isNotEmpty) {
         messages = [...messages, newMessage];
       }
       Timer(
@@ -51,9 +45,10 @@ class _BodyState extends State<Body> {
               .jumpTo(_scrollcontroller.position.maxScrollExtent));
     });
 
-    print(newMessage.toJson().toString());
+    print(newMessage.toString());
     _textEditingController.clear();
     FocusScope.of(context).unfocus();
+    return newMessage;
   }
 
   @override
@@ -66,13 +61,9 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    // This also removes the _printLatestValue listener.
     _textEditingController.dispose();
     super.dispose();
   }
-
-  List<MessageModel> messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +96,7 @@ class _BodyState extends State<Body> {
                   ),
                   padding: EdgeInsets.all(16),
                   child: Text(
-                    messages[index].message,
+                    messages[index].messageContent,
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
@@ -144,8 +135,15 @@ class _BodyState extends State<Body> {
                     width: 15,
                   ),
                   FloatingActionButton(
-                    onPressed: () {
-                      _addMessage();
+                    onPressed: () async {
+                      var senderMessage = _addMessage();
+                      var replyMessage = await postApi(senderMessage);
+                      setState(() {
+                        _receivedReply = true;
+                        if (replyMessage!.messageContent.isNotEmpty) {
+                          messages = [...messages, replyMessage];
+                        }
+                      });
                     },
                     child: Icon(
                       Icons.send,
@@ -162,45 +160,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
-// class CustomSimulation extends Simulation {
-//   final double initPosition;
-//   final double velocity;
-
-//   CustomSimulation({required this.initPosition, required this.velocity});
-
-//   @override
-//   double x(double time) {
-//     var max =
-//         math.max(math.min(initPosition, 0.0), initPosition + velocity * time);
-//     print(max.toString());
-//     return max;
-//   }
-
-//   @override
-//   double dx(double time) {
-//     print(velocity.toString());
-//     return velocity;
-//   }
-
-//   @override
-//   bool isDone(double time) {
-//     return false;
-//   }
-// }
-
-// class CustomScrollPhysics extends ScrollPhysics {
-//   @override
-//   ScrollPhysics applyTo(ScrollPhysics? ancestor) {
-//     return CustomScrollPhysics();
-//   }
-
-//   @override
-//   Simulation createBallisticSimulation(
-//       ScrollMetrics position, double velocity) {
-//     return CustomSimulation(
-//       initPosition: position.pixels,
-//       velocity: velocity * 20,
-//     );
-//   }
-// }
