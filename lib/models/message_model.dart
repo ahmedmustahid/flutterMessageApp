@@ -37,7 +37,7 @@ class MessageModel {
   @override
   String toString() {
     //return super.toString();
-    return '{\"id\": \"$id\",\"userId": \"$userId\",\"sessionId\": \"$sessionId\",\"isMe\": $isMe,\"messageContent\":\"$messageContent\",\"createdAt\": \"$createdAt\"}';
+    return '{\"id\": \"$id\",\"userId": \"$userId\",\"sessionId\": \"$sessionId\",\"isMe\": $isMe,\"messageContent\":\"${messageContent.toString()}\",\"createdAt\": \"$createdAt\"}';
   }
 
   fromJson(jsonDecodedFile) {
