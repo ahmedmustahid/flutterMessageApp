@@ -4,9 +4,11 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/amplifyconfiguration.dart';
-import 'package:chat/screens/messages/message_screen.dart';
-import 'package:chat/screens/welcome/welcome_screen.dart';
-import 'package:chat/services/api_service/amplify_services.dart';
+// <<<<<<< HEAD
+// import 'package:chat/services/api_service/amplify_services.dart';
+// =======
+import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
+//>>>>>>> hotfix-chat-display
 import 'package:chat/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
@@ -121,12 +123,17 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
-      home: _isAmplifyConfigured
-          ? MessagesScreen()
-          : Center(
-              child: CircularProgressIndicator(),
-            ),
+// <<<<<<< HEAD
+//       home: _isAmplifyConfigured
+//           ? MessagesScreen()
+//           : Center(
+//               child: CircularProgressIndicator(),
+//             ),
+//       //home: MessagesScreen(),
+// =======
       //home: MessagesScreen(),
+      home: SigninOrSignupScreen(),
+//>>>>>>> hotfix-chat-display
       //home: WelcomeScreen(),
     );
   }

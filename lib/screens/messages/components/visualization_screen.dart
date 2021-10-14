@@ -4,6 +4,7 @@ import 'package:chat/components/menu_items.dart';
 import 'package:chat/models/menu_item.dart';
 import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
+import 'package:chat/screens/messages/message_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -29,9 +30,25 @@ class _ScatterChartSample1State extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Column(
-        children: [
-          Expanded(child: buildGesture()),
+      extendBodyBehindAppBar: true, // App Bar を透過させるために必要
+      body: Stack(
+        children: <Widget>[
+          new Container(
+            // 背景画像表示. Stack の最初に配置.
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Column(children: <Widget>[
+            Padding(padding: EdgeInsets.only(top: 72)), // For App bar
+            //Expanded(child: buildGesture()),
+            Expanded(
+              child: Image.asset('assets/images/wordmap_example.png'),
+            ),
+          ]),
         ],
       ),
     );
@@ -78,37 +95,29 @@ class _ScatterChartSample1State extends State {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      elevation: 0, // App Bar を透過させるために必要
+      backgroundColor: Colors.transparent, // App Bar を透過させるために必要
+      brightness: Brightness.dark, // change the status bar color
+      automaticallyImplyLeading: false, // デフォルトの back ボタンを削除
       title: Row(
-        children: [
-          BackButton(),
-          CircleAvatar(
-              //backgroundImage: AssetImage("assets/images/user_2.png"),
-              radius: 14,
-              backgroundColor: Colors.brown.shade800,
-              child: const Text('S')),
-          SizedBox(width: kDefaultPadding * 0.75),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Sanzai",
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 両端寄せ
+        children: <Widget>[
+          Container(width: 40.0, height: 0.0),
+          IconButton(
+              icon: Image.asset('assets/images/chatroom_green.png'),
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MessagesScreen()))),
+          SizedBox(
+            height: 32.0,
+            width: 32.0,
+            child: IconButton(
+              icon: Image.asset('assets/images/logout.png'),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SigninOrSignupScreen())),
+            ),
           )
         ],
       ),
-      actions: <Widget>[
-        //PopUpMenu(),
-        PopupMenuButton<MenuItem>(
-            onSelected: (item) => onSelected(context, item),
-            itemBuilder: (context) => [
-                  ...MenuItems.itemsSecond.map(buildItem).toList(),
-                ]),
-        //PopUpMenu(),
-      ],
-      //IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_outlined))
     );
   }
 
