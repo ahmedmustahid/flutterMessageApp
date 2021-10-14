@@ -27,9 +27,13 @@ class SigninOrSignupScreen extends StatelessWidget {
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Spacer(
+                    flex: 4), // the distance of between top and first TextField
+                /*
                 Padding(
                     padding: EdgeInsets.only(
-                        top: 128)), // the distance of between TextFileds
+                        top: 128)), // the distance of between top and first TextField
+                  */
                 TextFormField(
                   //onChanged:
                   style: TextStyle(color: Color.fromRGBO(135, 202, 198, 1)),
@@ -54,9 +58,12 @@ class SigninOrSignupScreen extends StatelessWidget {
                     prefix: Text('   '), // paddings の代わり
                   ),
                 ),
+                Spacer(flex: 1), // the distance of between TextFileds
+                /*
                 Padding(
                     padding: EdgeInsets.only(
                         top: 64)), // the distance of between TextFileds
+                */
                 /*
                 Text(
                   "パスワード",
@@ -90,9 +97,14 @@ class SigninOrSignupScreen extends StatelessWidget {
                   ),
                   obscureText: true,
                 ),
+                /*
                 Padding(
                     padding: EdgeInsets.only(
-                        top: 100)), // the distance of between TextFileds
+                        top: 100)), // the distance of between TextFiled and login button
+                */
+                Spacer(
+                    flex:
+                        2), // the distance of between second TextFiled and login button
                 Center(
                   child: OutlinedButton(
                     child: Text(

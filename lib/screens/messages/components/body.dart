@@ -92,6 +92,7 @@ class _BodyState extends State<Body> {
         ),
         Column(
           children: <Widget>[
+            //Spacer(flex: 1), // For App bar
             Padding(padding: EdgeInsets.only(top: 72)), // For App bar
             /*
             Row(
