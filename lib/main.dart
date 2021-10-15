@@ -132,7 +132,11 @@ class _MyAppState extends State<MyApp> {
 //       //home: MessagesScreen(),
 // =======
       //home: MessagesScreen(),
-      home: SigninOrSignupScreen(),
+      home: _isAmplifyConfigured
+          ? SigninOrSignupScreen()
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
 //>>>>>>> hotfix-chat-display
       //home: WelcomeScreen(),
     );
