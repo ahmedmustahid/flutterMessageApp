@@ -266,18 +266,21 @@ class _BodyState extends State<Body> {
                             ),
                             onPressed: () async {
                               var senderMessage = _addMessage();
-                              var replyMessage = await postApi(senderMessage);
-                              setState(() {
-                                _receivedReply = true;
-                                if (replyMessage.messageContent.isNotEmpty) {
-                                  messages = [...messages, replyMessage];
-                                }
-                                _textEditingController.dispose();
-                                //setState(() => _isTextFieldEnabled = false);
-                                if (replyMessage.flowId.compareTo("END") == 0) {
-                                  setState(() => _isTextFieldEnabled = false);
-                                }
-                              });
+                              if (senderMessage.messageContent.isNotEmpty) {
+                                var replyMessage = await postApi(senderMessage);
+                                setState(() {
+                                  _receivedReply = true;
+                                  if (replyMessage.messageContent.isNotEmpty) {
+                                    messages = [...messages, replyMessage];
+                                  }
+                                  //_textEditingController.dispose();
+                                  //setState(() => _isTextFieldEnabled = false);
+                                  if (replyMessage.flowId.compareTo("END") ==
+                                      0) {
+                                    setState(() => _isTextFieldEnabled = false);
+                                  }
+                                });
+                              }
                             }),
                       ),
                     ],
