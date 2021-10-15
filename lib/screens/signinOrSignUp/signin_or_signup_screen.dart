@@ -1,11 +1,32 @@
 //import 'package:chat/components/primary_button.dart';
+import 'package:chat/components/show_snackbar.dart';
 import 'package:chat/constants.dart';
+import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/screens/chats/chats_screen.dart';
 import 'package:chat/screens/messages/message_screen.dart';
+import 'package:chat/services/api_service/validation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class SigninOrSignupScreen extends StatelessWidget {
+class SigninOrSignupScreen extends StatefulWidget {
+  @override
+  State<SigninOrSignupScreen> createState() => _SigninOrSignupScreenState();
+}
+
+class _SigninOrSignupScreenState extends State<SigninOrSignupScreen> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool isLoggedIn = false;
+
+  AuthRepositoryClass _authRepositoryClass = AuthRepositoryClass();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +52,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                     flex: 4), // the distance of between top and first TextField
                 TextFormField(
                   //onChanged:
+                  controller: _usernameController,
                   style: TextStyle(color: Color.fromRGBO(135, 202, 198, 1)),
                   decoration: InputDecoration(
                     // Username 入力
@@ -58,6 +80,7 @@ class SigninOrSignupScreen extends StatelessWidget {
                   // Password 入力
                   //onChanged:
                   style: TextStyle(color: Color.fromRGBO(135, 202, 198, 1)),
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     fillColor: Color.fromRGBO(35, 46, 60, 0.8),
                     filled:
@@ -84,26 +107,36 @@ class SigninOrSignupScreen extends StatelessWidget {
                         2), // the distance of between second TextFiled and login button
                 Center(
                   child: OutlinedButton(
-                    child: Text(
-                      'ログイン',
-                      style: new TextStyle(
-                        fontSize: 14,
-                        color: Color.fromRGBO(135, 202, 198, 1),
+                      child: Text(
+                        'ログイン',
+                        style: new TextStyle(
+                          fontSize: 14,
+                          color: Color.fromRGBO(135, 202, 198, 1),
+                        ),
                       ),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: Size(150, 40),
-                      backgroundColor: Color.fromRGBO(69, 111, 116, 1),
-                      //primary: Color.fromRGBO(135, 202, 198, 1), // テキストカラー
-                      shape: const StadiumBorder(),
-                      side: const BorderSide(
-                          width: 2, color: Color.fromRGBO(135, 202, 198, 1)),
-                    ),
-                    onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => MessagesScreen()),
-                      (route) => false,
-                    ),
-                  ),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: Size(150, 40),
+                        backgroundColor: Color.fromRGBO(69, 111, 116, 1),
+                        //primary: Color.fromRGBO(135, 202, 198, 1), // テキストカラー
+                        shape: const StadiumBorder(),
+                        side: const BorderSide(
+                            width: 2, color: Color.fromRGBO(135, 202, 198, 1)),
+                      ),
+                      onPressed: () async {
+                        isLoggedIn = await _authRepositoryClass
+                            .loginWithUsernamePassword(_usernameController.text,
+                                _passwordController.text, context);
+
+                        isLoggedIn
+                            ? Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => MessagesScreen()),
+                                (route) => false,
+                              )
+                            : Center(
+                                child: CircularProgressIndicator(),
+                              );
+                      }),
                 ),
                 Spacer(flex: 2),
               ],
