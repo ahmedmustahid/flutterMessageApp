@@ -31,26 +31,26 @@ class _ScatterChartSample1State extends State {
     return Scaffold(
       appBar: buildAppBar(context),
       extendBodyBehindAppBar: true, // App Bar を透過させるために必要
-      body: Stack(
-        children: <Widget>[
-          new Container(
-            // 背景画像表示. Stack の最初に配置.
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage('assets/images/background.png'),
-                fit: BoxFit.cover,
-              ),
+      body: Stack(children: <Widget>[
+        new Container(
+          // 背景画像表示. Stack の最初に配置.
+          decoration: new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
             ),
           ),
-          Column(children: <Widget>[
+        ),
+        Center(
+          // for centering the image
+          child: Column(children: <Widget>[
+            //Spacer(flex: 1), // For App bar
             Padding(padding: EdgeInsets.only(top: 72)), // For App bar
             //Expanded(child: buildGesture()),
-            Expanded(
-              child: Image.asset('assets/images/wordmap_example.png'),
-            ),
+            Expanded(child: Image.asset('assets/images/wordmap_example.png')),
           ]),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 
