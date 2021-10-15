@@ -20,6 +20,20 @@ class _SigninOrSignupScreenState extends State<SigninOrSignupScreen> {
 
   AuthRepositoryClass _authRepositoryClass = AuthRepositoryClass();
 
+  void _printLatestValue() {
+    print('Username text field: ${_usernameController.text}');
+    print('Password text field: ${_passwordController.text}');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start listening to changes.
+    _usernameController.addListener(_printLatestValue);
+    _passwordController.addListener(_printLatestValue);
+  }
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -123,9 +137,12 @@ class _SigninOrSignupScreenState extends State<SigninOrSignupScreen> {
                             width: 2, color: Color.fromRGBO(135, 202, 198, 1)),
                       ),
                       onPressed: () async {
-                        isLoggedIn = await _authRepositoryClass
-                            .loginWithUsernamePassword(_usernameController.text,
-                                _passwordController.text, context);
+                        await _authRepositoryClass.loginWithUsernamePassword(
+                            _usernameController.text,
+                            _passwordController.text,
+                            context);
+
+                        setState(() => isLoggedIn = true);
 
                         isLoggedIn
                             ? Navigator.of(context).pushAndRemoveUntil(

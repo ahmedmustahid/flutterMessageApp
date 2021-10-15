@@ -32,6 +32,7 @@ class _BodyState extends State<Body> {
 
   List<MessageModel> messages = [];
   bool _receivedReply = false;
+  bool _isTextFieldEnabled = true;
 
   void _printLatestValue() {
     print('text field: ${_textEditingController.text}');
@@ -232,6 +233,7 @@ class _BodyState extends State<Body> {
                     children: <Widget>[
                       Expanded(
                         child: TextField(
+                          enabled: _isTextFieldEnabled,
                           autocorrect: true,
                           enableSuggestions: true,
                           //onSubmitted: _addMessage(),
@@ -269,6 +271,11 @@ class _BodyState extends State<Body> {
                                 _receivedReply = true;
                                 if (replyMessage.messageContent.isNotEmpty) {
                                   messages = [...messages, replyMessage];
+                                }
+                                _textEditingController.dispose();
+                                //setState(() => _isTextFieldEnabled = false);
+                                if (replyMessage.flowId.compareTo("END") == 0) {
+                                  setState(() => _isTextFieldEnabled = false);
                                 }
                               });
                             }),

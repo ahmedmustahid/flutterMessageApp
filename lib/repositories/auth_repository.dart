@@ -19,6 +19,11 @@ class AuthRepositoryClass implements AuthRepository {
   Future<bool> loginWithUsernamePassword(
       String username, String password, BuildContext context) async {
     try {
+      AuthSession _authSessions = await Amplify.Auth.fetchAuthSession();
+
+      if (_authSessions.isSignedIn) {
+        await Amplify.Auth.signOut();
+      }
       SignInResult res = await Amplify.Auth.signIn(
         username: username,
         password: password,
@@ -46,5 +51,17 @@ class AuthRepositoryClass implements AuthRepository {
 
   Future<void> signOut() async {
     await Amplify.Auth.signOut();
+  }
+
+  void _fetchSession() async {
+    try {
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
+      );
+      String identityId = (res as CognitoAuthSession).identityId!;
+      print('identityId: $identityId');
+    } on AuthException catch (e) {
+      print(e.message);
+    }
   }
 }
