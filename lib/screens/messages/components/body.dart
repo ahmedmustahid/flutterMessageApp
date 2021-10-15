@@ -41,12 +41,14 @@ class _BodyState extends State<Body> {
     var messageId = Uuid().v1();
     var userId = "1";
     var sessionId = "1";
+    var flowId = "START";
     String dateTimeNow = DateTime.now().toIso8601String();
 
     MessageModel newMessage = MessageModel(
         id: messageId,
         userId: userId,
         sessionId: sessionId,
+        flowId: flowId,
         isMe: true,
         messageContent: _textEditingController.text.trim(),
         createdAt: dateTimeNow);
