@@ -267,7 +267,7 @@ class _BodyState extends State<Body> {
                               var replyMessage = await postApi(senderMessage);
                               setState(() {
                                 _receivedReply = true;
-                                if (replyMessage!.messageContent.isNotEmpty) {
+                                if (replyMessage.messageContent.isNotEmpty) {
                                   messages = [...messages, replyMessage];
                                 }
                               });

@@ -6,7 +6,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/constants.dart';
 import 'package:chat/models/message_model.dart';
 
-Future<MessageModel?> postApi(MessageModel classInstanceToPOST) async {
+Future<MessageModel> postApi(MessageModel classInstanceToPOST) async {
   try {
     RestOptions options = RestOptions(
         path: REST_API_RESOURCE_PATH,
@@ -23,5 +23,15 @@ Future<MessageModel?> postApi(MessageModel classInstanceToPOST) async {
     return classInstanceFromJson;
   } on ApiException catch (e) {
     print('POST call failed: $e');
+    var messageContent = "Something is wrong! Try Again.";
+    var errorMessage = MessageModel(
+        id: "",
+        userId: "",
+        sessionId: "",
+        flowId: "",
+        isMe: false,
+        messageContent: messageContent,
+        createdAt: "");
+    return errorMessage;
   }
 }
