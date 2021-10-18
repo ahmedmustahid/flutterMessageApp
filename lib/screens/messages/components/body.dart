@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:chat/constants.dart';
 import 'package:chat/models/message_model.dart';
+import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/services/api_service/post_method_service.dart';
 import 'package:flutter/material.dart';
 //<<<<<<< HEAD
@@ -33,16 +34,19 @@ class _BodyState extends State<Body> {
   List<MessageModel> messages = [];
   bool _receivedReply = false;
   bool _isTextFieldEnabled = true;
+  String _sessionId = "1";
+  String _flowId = "START";
 
   void _printLatestValue() {
     print('text field: ${_textEditingController.text}');
   }
 
-  MessageModel _addMessage() {
+  Future<MessageModel> _addMessage(
+      {String sessionId = "-1", String flowId = "START"}) async {
     var messageId = Uuid().v1();
-    var userId = "1";
-    var sessionId = "1";
-    var flowId = "START";
+    var userId = await AuthRepositoryClass().getUserIdFromAttributes();
+    //var sessionId = "1";
+    //var flowId = "START";
     String dateTimeNow = DateTime.now().toIso8601String();
 
     MessageModel newMessage = MessageModel(
@@ -265,16 +269,19 @@ class _BodyState extends State<Body> {
                               'assets/images/send.png',
                             ),
                             onPressed: () async {
-                              var senderMessage = _addMessage();
+                              var senderMessage = await _addMessage(
+                                  sessionId: this._sessionId,
+                                  flowId: this._flowId);
+
                               if (senderMessage.messageContent.isNotEmpty) {
                                 var replyMessage = await postApi(senderMessage);
                                 setState(() {
-                                  _receivedReply = true;
+                                  this._receivedReply = true;
+                                  this._flowId = replyMessage.flowId;
+                                  this._sessionId = replyMessage.sessionId;
                                   if (replyMessage.messageContent.isNotEmpty) {
                                     messages = [...messages, replyMessage];
                                   }
-                                  //_textEditingController.dispose();
-                                  //setState(() => _isTextFieldEnabled = false);
                                   if (replyMessage.flowId.compareTo("END") ==
                                       0) {
                                     setState(() => _isTextFieldEnabled = false);
