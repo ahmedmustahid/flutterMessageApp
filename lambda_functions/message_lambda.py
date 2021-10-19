@@ -1,25 +1,28 @@
 
 import json
-
+import random
+import datetime
 
 def lambda_handler(event, context):
     
     message = json.loads(event['body'])
     
-    #new_first_name = message["first_name"] + "_from_lambda"
-    #new_last_name = message["last_name"] + "_from_lambda"
-    #
-    #message["first_name"] = new_first_name
-    #message["last_name"] = new_last_name
 
-    id = message['id'];
-    userId = message['userId'];
-    sessionId = message['sessionId'];
-    isMe = message['isMe'];
-    messageContent = message['messageContent'];
-    createdAt = message['createdAt'];
 
+    id = message['id']
+    userId = message['userId']
+    sessionId = message['sessionId']
+    isMe = message['isMe']
+    messageContent = message['messageContent']
+    createdAt = message['createdAt']
+    
+    
+    
     message['messageContent'] = messageContent + "_from_AWS_Lambda"
+    message['isMe'] = False
+    message['flowId']="my_flow_id"+str(random.randint(1,10000))
+    message["sessionId"]="my_session_id"+str(random.randint(100000,10000000))
+    message['createdAt'] = datetime.datetime.now().isoformat()
     
     responseObject = {}
 
@@ -30,3 +33,4 @@ def lambda_handler(event, context):
 
     return responseObject
      
+
