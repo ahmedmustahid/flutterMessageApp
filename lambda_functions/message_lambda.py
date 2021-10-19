@@ -2,8 +2,16 @@
 import json
 import random
 import datetime
+import boto3
+
+
 
 def lambda_handler(event, context):
+    
+    # string = "dfghj"
+    # encoded_string = string.encode("utf-8")
+
+   
     
     message = json.loads(event['body'])
     
@@ -30,6 +38,15 @@ def lambda_handler(event, context):
     responseObject['headers'] = {}
     responseObject['headers']['Content-type'] = 'application/json'
     responseObject['body'] = json.dumps(message)
+    
+    
+    bucket_name = "zaichatbotjsonstorage"
+    file_name = "hello.json"
+    s3_path = "100001/20211019/" + file_name
+
+    s3 = boto3.resource("s3")
+    s3.Bucket(bucket_name).put_object(Key=s3_path, Body=json.dumps(message))
+    
 
     return responseObject
      
