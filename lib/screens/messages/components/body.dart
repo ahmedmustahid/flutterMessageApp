@@ -279,6 +279,7 @@ class _BodyState extends State<Body> {
                                   this._receivedReply = true;
                                   this._flowId = replyMessage.flowId;
                                   this._sessionId = replyMessage.sessionId;
+
                                   if (replyMessage.messageContent.isNotEmpty) {
                                     messages = [...messages, replyMessage];
                                   }
