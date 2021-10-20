@@ -8,6 +8,7 @@ import 'package:chat/screens/messages/message_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
 
@@ -47,7 +48,16 @@ class _ScatterChartSample1State extends State {
             //Spacer(flex: 1), // For App bar
             Padding(padding: EdgeInsets.only(top: 72)), // For App bar
             //Expanded(child: buildGesture()),
-            Expanded(child: Image.asset('assets/images/wordmap_example.png')),
+            Expanded(
+                child: InteractiveViewer(
+              minScale: 1.0,
+              maxScale: 5,
+              child: Container(
+                child: SvgPicture.asset(
+                    'assets/images/sample.svg'), //Image.asset('assets/images/sample.png'),
+                color: Colors.transparent,
+              ),
+            )),
           ]),
         ),
       ]),

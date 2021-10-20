@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:chat/constants.dart';
 import 'package:chat/models/message_model.dart';
 import 'package:chat/repositories/auth_repository.dart';
@@ -34,7 +35,7 @@ class _BodyState extends State<Body> {
   List<MessageModel> messages = [];
   bool _receivedReply = false;
   bool _isTextFieldEnabled = true;
-  String _sessionId = "1";
+  String _sessionId = "-1";
   String _flowId = "START";
 
   void _printLatestValue() {
@@ -161,7 +162,8 @@ class _BodyState extends State<Body> {
             */
             Expanded(
               child: new Container(
-                color: Color.fromRGBO(70, 82, 97, 1),
+                //color: Color.fromRGBO(70, 82, 97, 1), // 背景をグレーで塗りつぶし
+                color: Colors.transparent, // 背景を透明色で塗りつぶし
                 child: ListView.builder(
                   controller: _scrollcontroller,
                   itemCount: messages.length,
@@ -283,6 +285,11 @@ class _BodyState extends State<Body> {
                                   if (replyMessage.messageContent.isNotEmpty) {
                                     messages = [...messages, replyMessage];
                                   }
+                                  Timer(
+                                      Duration(milliseconds: 30),
+                                      () => _scrollcontroller.jumpTo(
+                                          _scrollcontroller
+                                              .position.maxScrollExtent));
                                   if (replyMessage.flowId.compareTo("END") ==
                                       0) {
                                     setState(() => _isTextFieldEnabled = false);

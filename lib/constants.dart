@@ -9,7 +9,7 @@ const kErrorColor = Color(0xFFF03738);
 
 const kDefaultPadding = 20.0;
 
-//const REST_API_RESOURCE_PATH = '/chatbot';
+const REST_API_RESOURCE_PATH = '/chatbot';
 
 //floowing is for test
-const REST_API_RESOURCE_PATH = '/todo';
+//const REST_API_RESOURCE_PATH = '/todo';

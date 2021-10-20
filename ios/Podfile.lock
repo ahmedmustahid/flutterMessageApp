@@ -1,6 +1,7 @@
 PODS:
   - Amplify (1.13.4):
     - Amplify/Default (= 1.13.4)
+  - Amplify/Default (1.13.4)
   - amplify_api (0.0.1):
     - Amplify (~> 1.13.0)
     - amplify_core
@@ -150,6 +151,6 @@ SPEC CHECKSUMS:
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
 
 COCOAPODS: 1.11.2

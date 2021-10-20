@@ -8,9 +8,11 @@ import 'package:chat/models/message_model.dart';
 
 Future<MessageModel> postApi(MessageModel classInstanceToPOST) async {
   try {
+    final encoder = const Utf8Encoder(); // 日本語文字化け解決用
     RestOptions options = RestOptions(
         path: REST_API_RESOURCE_PATH,
-        body: Uint8List.fromList(classInstanceToPOST.toString().codeUnits));
+        body: Uint8List.fromList(encoder.convert(classInstanceToPOST
+            .toString()))); // 日本語の文字化けを解消するために文字列をUTF8でエンコードする
     RestOperation restOperation = Amplify.API.post(restOptions: options);
     RestResponse response = await restOperation.response;
     print('POST call succeeded');
