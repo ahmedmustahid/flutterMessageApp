@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:chat/amplifyconfiguration.dart';
 
 import '../../../constants.dart';
 
@@ -18,6 +19,8 @@ class ScatterChartSample1 extends StatefulWidget {
 }
 
 class _ScatterChartSample1State extends State {
+  final s3ImageStoreURLPath = s3ImageStoreURL + IMAGE_API_RESOURCE_PATH;
+
   final maxX = 50.0;
   final maxY = 50.0;
   final radius = 8.0;
@@ -53,8 +56,10 @@ class _ScatterChartSample1State extends State {
               minScale: 1.0,
               maxScale: 5,
               child: Container(
-                child: SvgPicture.asset(
-                    'assets/images/sample.svg'), //Image.asset('assets/images/sample.png'),
+                child: SvgPicture.network(
+                  s3ImageStoreURLPath,
+                  headers: {"x-api-key": s3ImageStoreURLApiKey},
+                ), //Image.asset('assets/images/sample.png'),
                 color: Colors.transparent,
               ),
             )),
