@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chat/constants.dart';
+import 'package:chat/globals.dart';
 import 'package:chat/models/message_model.dart';
 import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/services/api_service/post_method_service.dart';
@@ -58,6 +59,8 @@ class _BodyState extends State<Body> {
         isMe: true,
         messageContent: _textEditingController.text.trim(),
         createdAt: dateTimeNow);
+
+    userIdForImage = newMessage.userId;
 
     setState(() {
       if (newMessage.messageContent.isNotEmpty) {
@@ -275,6 +278,10 @@ class _BodyState extends State<Body> {
                                   sessionId: this._sessionId,
                                   flowId: this._flowId);
 
+                              if (this._flowId.compareTo("END") == 0) {
+                                setState(() => _isTextFieldEnabled = false);
+                              }
+
                               if (senderMessage.messageContent.isNotEmpty) {
                                 var replyMessage = await postApi(senderMessage);
                                 setState(() {
@@ -290,10 +297,6 @@ class _BodyState extends State<Body> {
                                       () => _scrollcontroller.jumpTo(
                                           _scrollcontroller
                                               .position.maxScrollExtent));
-                                  if (replyMessage.flowId.compareTo("END") ==
-                                      0) {
-                                    setState(() => _isTextFieldEnabled = false);
-                                  }
                                 });
                               }
                             }),

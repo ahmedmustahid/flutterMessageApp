@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:chat/components/menu_items.dart';
+import 'package:chat/globals.dart';
 import 'package:chat/models/menu_item.dart';
+import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
 import 'package:chat/screens/messages/message_screen.dart';
@@ -19,7 +21,8 @@ class ScatterChartSample1 extends StatefulWidget {
 }
 
 class _ScatterChartSample1State extends State {
-  final s3ImageStoreURLPath = s3ImageStoreURL + IMAGE_API_RESOURCE_PATH;
+  final s3ImageStoreURLPath =
+      s3ImageStoreURL + userIdForImage + IMAGE_API_RESOURCE_PATH;
 
   final maxX = 50.0;
   final maxY = 50.0;

@@ -11,6 +11,6 @@ const kDefaultPadding = 20.0;
 
 const REST_API_RESOURCE_PATH = '/chatbot';
 
-const IMAGE_API_RESOURCE_PATH = 'test/result.svg';
+const IMAGE_API_RESOURCE_PATH = '/result.svg';
 //floowing is for test
 //const REST_API_RESOURCE_PATH = '/todo';
