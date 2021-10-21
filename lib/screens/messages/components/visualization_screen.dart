@@ -62,6 +62,8 @@ class _ScatterChartSample1State extends State {
                 child: SvgPicture.network(
                   s3ImageStoreURLPath,
                   headers: {"x-api-key": s3ImageStoreURLApiKey},
+                  placeholderBuilder: (BuildContext context) =>
+                      Center(child: const CircularProgressIndicator()),
                 ), //Image.asset('assets/images/sample.png'),
                 color: Colors.transparent,
               ),
