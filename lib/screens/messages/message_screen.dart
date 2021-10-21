@@ -41,11 +41,13 @@ class MessagesScreen extends StatelessWidget {
             height: 32.0,
             width: 32.0,
             child: IconButton(
-              icon: Image.asset('assets/images/logout.png'),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SigninOrSignupScreen())),
-            ),
-          )
+                icon: Image.asset('assets/images/logout.png'),
+                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => SigninOrSignupScreen()),
+                      (route) => false,
+                    )),
+          ),
         ],
       ),
     );
