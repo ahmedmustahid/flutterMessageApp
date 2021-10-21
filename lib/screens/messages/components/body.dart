@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:chat/constants.dart';
 import 'package:chat/globals.dart';
 import 'package:chat/models/message_model.dart';
@@ -32,6 +33,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   ScrollController _scrollcontroller = ScrollController();
   final TextEditingController _textEditingController = TextEditingController();
+  //int _counter = 0;
 
   List<MessageModel> messages = [];
   bool _receivedReply = false;
@@ -60,6 +62,13 @@ class _BodyState extends State<Body> {
         messageContent: _textEditingController.text.trim(),
         createdAt: dateTimeNow);
 
+    // if (globalCounter == 0) {
+    //   postApi(newMessage);
+    //   print(newMessage);
+    // }
+
+    // globalCounter++;
+
     userIdForImage = newMessage.userId;
 
     setState(() {
@@ -81,7 +90,23 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-
+    Future(() async {
+      var userIdInit = await AuthRepositoryClass().getUserIdFromAttributes();
+      if (globalCounter == 0) {
+        MessageModel messageModelInit = MessageModel(
+            id: Uuid().v1(),
+            userId: userIdInit,
+            sessionId: "-1",
+            flowId: "START",
+            isMe: true,
+            messageContent: "",
+            createdAt: DateTime.now().toIso8601String());
+        postApi(messageModelInit);
+        print('Init message sent');
+        print('globalCounter value $globalCounter');
+      }
+      globalCounter++;
+    });
     // Start listening to changes.
     _textEditingController.addListener(_printLatestValue);
   }

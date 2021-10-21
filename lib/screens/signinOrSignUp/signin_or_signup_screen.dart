@@ -1,6 +1,7 @@
 //import 'package:chat/components/primary_button.dart';
 import 'package:chat/components/show_snackbar.dart';
 import 'package:chat/constants.dart';
+import 'package:chat/globals.dart';
 import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/screens/chats/chats_screen.dart';
 import 'package:chat/screens/messages/message_screen.dart';
@@ -145,11 +146,13 @@ class _SigninOrSignupScreenState extends State<SigninOrSignupScreen> {
                         setState(() => isLoggedIn = true);
 
                         isLoggedIn
-                            ? Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => MessagesScreen()),
-                                (route) => false,
-                              )
+                            ? Navigator.of(context)
+                                .pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => MessagesScreen()),
+                                  (route) => false,
+                                )
+                                .then((_) => globalCounter = 0)
                             : Center(
                                 child: CircularProgressIndicator(),
                               );
