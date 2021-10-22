@@ -123,10 +123,11 @@ class _ScatterChartSample1State extends State {
         mainAxisAlignment: MainAxisAlignment.spaceBetween, // 両端寄せ
         children: <Widget>[
           Container(width: 40.0, height: 0.0),
-          IconButton(
-              icon: Image.asset('assets/images/chatroom_green.png'),
-              onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MessagesScreen()))),
+          BackButton(),
+          // IconButton(
+          //     icon: Image.asset('assets/images/chatroom_green.png'),
+          //     onPressed: () => Navigator.of(context).push(
+          //         MaterialPageRoute(builder: (context) => MessagesScreen()))),
           SizedBox(
             height: 32.0,
             width: 32.0,

@@ -102,9 +102,11 @@ class _BodyState extends State<Body> {
         this._flowId = replyMessage.flowId;
         this._sessionId = replyMessage.sessionId;
 
-        if (replyMessage.messageContent.isNotEmpty) {
-          messages = [...messages, replyMessage];
-        }
+        setState(() {
+          if (replyMessage.messageContent.isNotEmpty) {
+            messages = [...messages, replyMessage];
+          }
+        });
       }
       print('globalCounter value $globalCounter');
       globalCounter++;
