@@ -91,20 +91,22 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     Future(() async {
-      var userIdInit = await AuthRepositoryClass().getUserIdFromAttributes();
+      //var userIdInit = await AuthRepositoryClass().getUserIdFromAttributes();
       if (globalCounter == 0) {
-        MessageModel messageModelInit = MessageModel(
-            id: Uuid().v1(),
-            userId: userIdInit,
-            sessionId: "-1",
-            flowId: "START",
-            isMe: true,
-            messageContent: "",
-            createdAt: DateTime.now().toIso8601String());
-        postApi(messageModelInit);
-        print('Init message sent');
-        print('globalCounter value $globalCounter');
+        var senderMessage =
+            await _addMessage(sessionId: this._sessionId, flowId: this._flowId);
+
+        var replyMessage = await postApi(senderMessage);
+
+        this._receivedReply = true;
+        this._flowId = replyMessage.flowId;
+        this._sessionId = replyMessage.sessionId;
+
+        if (replyMessage.messageContent.isNotEmpty) {
+          messages = [...messages, replyMessage];
+        }
       }
+      print('globalCounter value $globalCounter');
       globalCounter++;
     });
     // Start listening to changes.

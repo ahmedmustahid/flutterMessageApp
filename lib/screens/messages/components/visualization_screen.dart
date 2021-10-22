@@ -132,8 +132,10 @@ class _ScatterChartSample1State extends State {
             width: 32.0,
             child: IconButton(
               icon: Image.asset('assets/images/logout.png'),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SigninOrSignupScreen())),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => SigninOrSignupScreen()),
+                (route) => false,
+              ),
             ),
           )
         ],
