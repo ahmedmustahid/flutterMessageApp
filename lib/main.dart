@@ -1,17 +1,11 @@
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/amplifyconfiguration.dart';
-// <<<<<<< HEAD
-// import 'package:chat/services/api_service/amplify_services.dart';
-// =======
+
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
-//>>>>>>> hotfix-chat-display
 import 'package:chat/theme.dart';
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
 
 class TestName {
   TestName({
@@ -40,14 +34,10 @@ class TestName {
 }
 
 void main() {
-  // final myJson =
-  //     TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
-  // print(myJson);
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -58,13 +48,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _configureAmplify();
-    //AmplifyService.configureAmplify();
   }
 
   Future<void> _configureAmplify() async {
-    // Add the following line to add API plugin to your app.
-    // Auth plugin needed for IAM authorization mode, which is default for REST API.
-
     try {
       await Amplify.addPlugins([AmplifyAPI(), AmplifyAuthCognito()]);
       await Amplify.configure(amplifyconfig);
@@ -75,40 +61,6 @@ class _MyAppState extends State<MyApp> {
           "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
     }
   }
-
-  void onTestApi() async {
-    // final myJson =
-    //   TestName(firstName: "John_flutter", lastName: "Smith_flutter").toJson();
-    final firstName = "John_flutter";
-    final lastName = "Smith_flutter";
-    TestName myTestName = TestName(firstName: firstName, lastName: lastName);
-    try {
-      RestOptions options = RestOptions(
-          path: '/todo',
-          body: Uint8List.fromList(myTestName
-              .toString()
-              //'{\"first_name\":\"$firstName\",\"last_name\":\"$lastName\"}'
-              .codeUnits));
-      RestOperation restOperation = Amplify.API.post(restOptions: options);
-      RestResponse response = await restOperation.response;
-      print('POST call succeeded');
-
-      final responseFromREST = new String.fromCharCodes(response.data);
-      final myInstanceFromJson =
-          TestName.fromJson(jsonDecode(responseFromREST));
-      print('String response from REST is \n $responseFromREST');
-
-      print('firstName from JSON object ${myInstanceFromJson.firstName}');
-      print('lastName from JSON object ${myInstanceFromJson.lastName}');
-    } on ApiException catch (e) {
-      print('POST call failed: $e');
-    }
-    // Edit this function with next steps.
-  }
-
-  // void _postRequest() {
-
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,22 +75,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
-// <<<<<<< HEAD
-//       home: _isAmplifyConfigured
-//           ? MessagesScreen()
-//           : Center(
-//               child: CircularProgressIndicator(),
-//             ),
-//       //home: MessagesScreen(),
-// =======
-      //home: MessagesScreen(),
       home: _isAmplifyConfigured
           ? SigninOrSignupScreen()
           : Center(
               child: CircularProgressIndicator(),
             ),
-//>>>>>>> hotfix-chat-display
-      //home: WelcomeScreen(),
     );
   }
 }
