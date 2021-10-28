@@ -54,7 +54,8 @@ class _BodyState extends State<Body> {
         messages = [...messages, newMessage];
       }
       Timer(
-          Duration(milliseconds: 30),
+          Duration(seconds: 1),
+          //Duration(milliseconds: 30),
           () => _scrollcontroller
               .jumpTo(_scrollcontroller.position.maxScrollExtent));
     });
@@ -88,6 +89,10 @@ class _BodyState extends State<Body> {
           //  messages = [...messages, replyMessage];
           //}
           messages = [...pastAndWelcomeMessages];
+          Timer(
+              Duration(milliseconds: 350),
+              () => _scrollcontroller
+                  .jumpTo(_scrollcontroller.position.maxScrollExtent));
         });
 
         print('globalCounter value $globalCounter');
