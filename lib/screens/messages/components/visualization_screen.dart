@@ -35,6 +35,7 @@ class _ScatterChartSample1State extends State {
 
   @override
   Widget build(BuildContext context) {
+    print("s3ImageStoreURLPath $s3ImageStoreURLPath");
     return Scaffold(
       appBar: buildAppBar(context),
       extendBodyBehindAppBar: true, // App Bar を透過させるために必要

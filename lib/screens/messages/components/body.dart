@@ -5,6 +5,7 @@ import 'package:chat/constants.dart';
 import 'package:chat/globals.dart';
 import 'package:chat/models/message_model.dart';
 import 'package:chat/repositories/auth_repository.dart';
+import 'package:chat/services/api_service/get_past_messages_service.dart';
 import 'package:chat/services/api_service/post_method_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -68,23 +69,30 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     Future(() async {
-      var senderMessage =
-          await _addMessage(sessionId: this._sessionId, flowId: this._flowId);
+      if (this._flowId == "START" && this._sessionId == "-1") {
+        print('initstate with flowId -1');
+        var senderMessage =
+            await _addMessage(sessionId: this._sessionId, flowId: this._flowId);
 
-      var replyMessage = await postApi(senderMessage);
+        var pastAndWelcomeMessages =
+            await getPastAndWelcomeMessages(senderMessage);
 
-      this._receivedReply = true;
-      this._flowId = replyMessage.flowId;
-      this._sessionId = replyMessage.sessionId;
+        this._receivedReply = true;
+        this._flowId =
+            pastAndWelcomeMessages[pastAndWelcomeMessages.length - 1].flowId;
+        this._sessionId =
+            pastAndWelcomeMessages[pastAndWelcomeMessages.length - 1].sessionId;
 
-      setState(() {
-        if (replyMessage.messageContent.isNotEmpty) {
-          messages = [...messages, replyMessage];
-        }
-      });
+        setState(() {
+          //if (replyMessage.messageContent.isNotEmpty) {
+          //  messages = [...messages, replyMessage];
+          //}
+          messages = [...pastAndWelcomeMessages];
+        });
 
-      print('globalCounter value $globalCounter');
-      globalCounter++;
+        print('globalCounter value $globalCounter');
+        globalCounter++;
+      }
     });
     // Start listening to changes.
     _textEditingController.addListener(_printLatestValue);

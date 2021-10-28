@@ -2,6 +2,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/amplifyconfiguration.dart';
+import 'package:chat/screens/messages/message_screen.dart';
 
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
 import 'package:chat/theme.dart';
@@ -76,7 +77,8 @@ class _MyAppState extends State<MyApp> {
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
       home: _isAmplifyConfigured
-          ? SigninOrSignupScreen()
+          ? MessagesScreen()
+          //? SigninOrSignupScreen()
           : Center(
               child: CircularProgressIndicator(),
             ),

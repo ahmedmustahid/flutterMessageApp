@@ -6,7 +6,8 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:chat/constants.dart';
 import 'package:chat/models/message_model.dart';
 
-Future<MessageModel> postApi(MessageModel classInstanceToPOST) async {
+Future<dynamic> getPastAndWelcomeMessages(
+    MessageModel classInstanceToPOST) async {
   try {
     final encoder = const Utf8Encoder(); // 日本語文字化け解決用
 
@@ -19,22 +20,14 @@ Future<MessageModel> postApi(MessageModel classInstanceToPOST) async {
     print('POST call succeeded');
 
     final responseFromREST = new String.fromCharCodes(response.data);
-    // print("flowId \n ${classInstanceToPOST.flowId}");
-    // print("sessionId \n ${classInstanceToPOST.sessionId}");
-    // if (classInstanceToPOST.flowId == "START" &&
-    //     classInstanceToPOST.sessionId == "-1") {
-    //   Iterable decodedJson = jsonDecode(responseFromREST);
-    //   print('decodedJson \n $decodedJson');
-    //   List<MessageModel> messages = List<MessageModel>.from(
-    //       decodedJson.map((element) => classInstanceToPOST.fromJson(element)));
-    //   return messages;
-    // } else {
-    final classInstanceFromJson =
-        classInstanceToPOST.fromJson(jsonDecode(responseFromREST));
+    //print("flowId  ${classInstanceToPOST.flowId}");
+    //print("sessionId  ${classInstanceToPOST.sessionId}");
 
-    print('String response from REST is \n $responseFromREST');
-    return classInstanceFromJson;
-    //}
+    Iterable decodedJson = jsonDecode(responseFromREST);
+    print('decodedJson \n $decodedJson');
+    List<MessageModel> messages = List<MessageModel>.from(
+        decodedJson.map((element) => classInstanceToPOST.fromJson(element)));
+    return messages;
   } on ApiException catch (e) {
     print('POST call failed: $e');
     var messageContent = "Something is wrong! Try Again.";
@@ -46,6 +39,6 @@ Future<MessageModel> postApi(MessageModel classInstanceToPOST) async {
         isMe: false,
         messageContent: messageContent,
         createdAt: "");
-    return errorMessage;
+    return [errorMessage];
   }
 }
