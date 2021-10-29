@@ -54,7 +54,7 @@ class _BodyState extends State<Body> {
         messages = [...messages, newMessage];
       }
       Timer(
-          Duration(seconds: 1),
+          Duration(milliseconds: 6000),
           //Duration(milliseconds: 30),
           () => _scrollcontroller
               .jumpTo(_scrollcontroller.position.maxScrollExtent));

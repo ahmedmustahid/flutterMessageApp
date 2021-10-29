@@ -77,8 +77,8 @@ class _MyAppState extends State<MyApp> {
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
       home: _isAmplifyConfigured
-          //? MessagesScreen()
-          ? SigninOrSignupScreen()
+          ? MessagesScreen()
+          //? SigninOrSignupScreen()
           : Center(
               child: CircularProgressIndicator(),
             ),

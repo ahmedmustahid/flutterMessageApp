@@ -55,6 +55,7 @@ dependencies:
   get_it:
   intl:
   device_info: ^2.0.2
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
