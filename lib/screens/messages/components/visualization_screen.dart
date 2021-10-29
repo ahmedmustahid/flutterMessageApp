@@ -32,6 +32,10 @@ class _ScatterChartSample1State extends State {
   Color blue2 = const Color(0xFF42A5F5).withOpacity(0.8);
 
   bool showFlutter = true;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +63,19 @@ class _ScatterChartSample1State extends State {
                 child: InteractiveViewer(
               minScale: 1.0,
               maxScale: 5,
-              child: Container(
-                child: SvgPicture.network(
-                  s3ImageStoreURLPath,
-                  headers: {"x-api-key": s3ImageStoreURLApiKey},
-                  placeholderBuilder: (BuildContext context) =>
-                      Center(child: const CircularProgressIndicator()),
-                ), //Image.asset('assets/images/sample.png'),
-                color: Colors.transparent,
+              child: InkWell(
+                child: Container(
+                  child: SvgPicture.network(
+                    s3ImageStoreURLPath,
+                    headers: {"x-api-key": s3ImageStoreURLApiKey},
+                    placeholderBuilder: (BuildContext context) =>
+                        Center(child: const CircularProgressIndicator()),
+                  ), //Image.asset('assets/images/sample.png'),
+                  color: Colors.transparent,
+                ),
+                onTap: () => setState(() {
+                  print('rebuilding');
+                }),
               ),
             )),
           ]),
