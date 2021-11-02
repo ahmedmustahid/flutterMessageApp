@@ -8,3 +8,10 @@ const kWarninngColor = Color(0xFFF3BB1C);
 const kErrorColor = Color(0xFFF03738);
 
 const kDefaultPadding = 20.0;
+
+const REST_API_RESOURCE_PATH = '/chatbot';
+
+const IMAGE_API_RESOURCE_PATH = '/result.svg';
+const CHAT_TIMEOUT_DURATION_SECONDS = 30;
+//floowing is for test
+//const REST_API_RESOURCE_PATH = '/todo';

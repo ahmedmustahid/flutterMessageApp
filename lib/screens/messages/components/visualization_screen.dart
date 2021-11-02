@@ -1,12 +1,17 @@
 import 'dart:math';
 
 import 'package:chat/components/menu_items.dart';
+import 'package:chat/globals.dart';
 import 'package:chat/models/menu_item.dart';
+import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
+import 'package:chat/screens/messages/message_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:chat/amplifyconfiguration.dart';
 
 import '../../../constants.dart';
 
@@ -16,6 +21,9 @@ class ScatterChartSample1 extends StatefulWidget {
 }
 
 class _ScatterChartSample1State extends State {
+  final s3ImageStoreURLPath =
+      s3ImageStoreURL + userIdForImage + IMAGE_API_RESOURCE_PATH;
+
   final maxX = 50.0;
   final maxY = 50.0;
   final radius = 8.0;
@@ -24,16 +32,55 @@ class _ScatterChartSample1State extends State {
   Color blue2 = const Color(0xFF42A5F5).withOpacity(0.8);
 
   bool showFlutter = true;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("s3ImageStoreURLPath $s3ImageStoreURLPath");
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Column(
-        children: [
-          Expanded(child: buildGesture()),
-        ],
-      ),
+      extendBodyBehindAppBar: true, // App Bar を透過させるために必要
+      body: Stack(children: <Widget>[
+        new Container(
+          // 背景画像表示. Stack の最初に配置.
+          decoration: new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage('assets/images/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Center(
+          // for centering the image
+          child: Column(children: <Widget>[
+            //Spacer(flex: 1), // For App bar
+            Padding(padding: EdgeInsets.only(top: 72)), // For App bar
+            //Expanded(child: buildGesture()),
+            Expanded(
+                child: InteractiveViewer(
+              minScale: 1.0,
+              maxScale: 5,
+              child: InkWell(
+                child: Container(
+                  child: SvgPicture.network(
+                    s3ImageStoreURLPath,
+                    headers: {"x-api-key": s3ImageStoreURLApiKey},
+                    placeholderBuilder: (BuildContext context) =>
+                        Center(child: const CircularProgressIndicator()),
+                  ), //Image.asset('assets/images/sample.png'),
+                  color: Colors.transparent,
+                ),
+                onTap: () => setState(() {
+                  print('rebuilding');
+                }),
+              ),
+            )),
+          ]),
+        ),
+      ]),
     );
   }
 
@@ -78,37 +125,32 @@ class _ScatterChartSample1State extends State {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      elevation: 0, // App Bar を透過させるために必要
+      backgroundColor: Colors.transparent, // App Bar を透過させるために必要
+      brightness: Brightness.dark, // change the status bar color
+      automaticallyImplyLeading: false, // デフォルトの back ボタンを削除
       title: Row(
-        children: [
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 両端寄せ
+        children: <Widget>[
+          Container(width: 40.0, height: 0.0),
           BackButton(),
-          CircleAvatar(
-              //backgroundImage: AssetImage("assets/images/user_2.png"),
-              radius: 14,
-              backgroundColor: Colors.brown.shade800,
-              child: const Text('S')),
-          SizedBox(width: kDefaultPadding * 0.75),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Sanzai",
-                style: TextStyle(fontSize: 16),
+          // IconButton(
+          //     icon: Image.asset('assets/images/chatroom_green.png'),
+          //     onPressed: () => Navigator.of(context).push(
+          //         MaterialPageRoute(builder: (context) => MessagesScreen()))),
+          SizedBox(
+            height: 32.0,
+            width: 32.0,
+            child: IconButton(
+              icon: Image.asset('assets/images/logout.png'),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => SigninOrSignupScreen()),
+                (route) => false,
               ),
-            ],
+            ),
           )
         ],
       ),
-      actions: <Widget>[
-        //PopUpMenu(),
-        PopupMenuButton<MenuItem>(
-            onSelected: (item) => onSelected(context, item),
-            itemBuilder: (context) => [
-                  ...MenuItems.itemsSecond.map(buildItem).toList(),
-                ]),
-        //PopUpMenu(),
-      ],
-      //IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_outlined))
     );
   }
 

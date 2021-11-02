@@ -1,23 +1,29 @@
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
+//import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:chat/services/api_service/queries.dart';
+import 'package:chat/components/show_snackbar.dart';
+import 'package:flutter/widgets.dart';
+//import 'package:chat/services/api_service/queries.dart';
 
 abstract class AuthRepository {
-  Future<bool> loginWithUsernamePassword(String username, String password);
-  Future<bool> hasUsername();
-  Future<dynamic> getUserFromGraphql();
+  Future<bool> loginWithUsernamePassword(
+      String username, String password, BuildContext context);
+  Future<String> getUserIdFromAttributes();
+  Future<void> signOut();
 }
 
 class AuthRepositoryClass implements AuthRepository {
   @override
   Future<bool> loginWithUsernamePassword(
-    String username,
-    String password,
-  ) async {
+      String username, String password, BuildContext context) async {
     try {
+      AuthSession _authSessions = await Amplify.Auth.fetchAuthSession();
+
+      if (_authSessions.isSignedIn) {
+        await Amplify.Auth.signOut();
+      }
       SignInResult res = await Amplify.Auth.signIn(
         username: username,
         password: password,
@@ -25,42 +31,37 @@ class AuthRepositoryClass implements AuthRepository {
       return res.isSignedIn;
     } catch (e) {
       print(e);
+      showSnackBar(context, 'ユーザーIDもしくはパスワードに誤りがあります！');
       rethrow;
     }
   }
 
   @override
-  Future<bool> hasUsername() async {
-    AuthUser authUser = await Amplify.Auth.getCurrentUser();
-    var operation = Amplify.API.mutate(
-      request: GraphQLRequest(
-        document: Queries.hasUserName,
-        variables: {"id": authUser.userId},
-      ),
-    );
-    var response = await operation.response;
-    var data = json.decode(response.data);
-    if (data['getUser']['username'] != "Not Available") {
-      return true;
-    } else
-      return false;
+  Future<String> getUserIdFromAttributes() async {
+    try {
+      final attributes = await Amplify.Auth.fetchUserAttributes();
+      final userId = attributes
+          .firstWhere((element) => element.userAttributeKey == 'sub')
+          .value;
+      return userId;
+    } catch (e) {
+      throw e;
+    }
   }
 
-  @override
-  Future getUserFromGraphql() async {
+  Future<void> signOut() async {
+    await Amplify.Auth.signOut();
+  }
+
+  void _fetchSession() async {
     try {
-      AuthUser authUser = await Amplify.Auth.getCurrentUser();
-      var operation = Amplify.API.mutate(
-        request: GraphQLRequest(
-          document: Queries.getCurrUser,
-          variables: {"id": authUser.userId},
-        ),
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
       );
-      var response = await operation.response;
-      var data = json.decode(response.data);
-      return data;
-    } catch (e) {
-      rethrow;
+      String identityId = (res as CognitoAuthSession).identityId!;
+      print('identityId: $identityId');
+    } on AuthException catch (e) {
+      print(e.message);
     }
   }
 }
