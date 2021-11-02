@@ -6,6 +6,10 @@ import pprint
 import datetime
 from chatbot import Chatbot
 
+dynamoDb = boto3.resource('dynamodb')
+tableName='zaichatbotDb2'
+dynamoTable = dynamoDb.Table(tableName)
+
 def _localtime_str(time_zone=9): 
     date = datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(hours=int(time_zone))
     date_str = date.strftime("%Y-%m-%dT%H:%M:%S.%f")
@@ -36,6 +40,9 @@ def lambda_handler(event, context):
 
     print(event)
     message = json.loads(event['body'])
+
+    if not (message["flowId"]=="START" and message["sessionId"]=="-1"):
+        dynamoTable.put_item(Item=message)
     
     chat_id = message["id"]
 
@@ -85,6 +92,8 @@ def lambda_handler(event, context):
     # チャットボットのメッセージをバケットへ保存
     save_filepath = os.path.join("user", chat_id+"_chatbot.json")
     _save_jsonfile_into_s3(response, FILEPATH=save_filepath, BUCKET_NAME="zaichatbotjsonstorage")
+
+    dynamoTable.put_item(Item=response)
 
     
     responseObject = {}
