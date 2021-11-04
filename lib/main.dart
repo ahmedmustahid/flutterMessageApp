@@ -45,6 +45,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isAmplifyConfigured = false;
+  bool _isSignedIn = false;
   @override
   void initState() {
     super.initState();
@@ -55,8 +56,11 @@ class _MyAppState extends State<MyApp> {
     try {
       await Amplify.addPlugins([AmplifyAPI(), AmplifyAuthCognito()]);
       await Amplify.configure(amplifyconfig);
-
       setState(() => _isAmplifyConfigured = true);
+      AuthSession _authSessions = await Amplify.Auth.fetchAuthSession();
+      if (_authSessions.isSignedIn) {
+        setState(() => _isSignedIn = true);
+      }
     } on AmplifyAlreadyConfiguredException {
       print(
           "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
@@ -77,8 +81,7 @@ class _MyAppState extends State<MyApp> {
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
       home: _isAmplifyConfigured
-          //? MessagesScreen()
-          ? SigninOrSignupScreen()
+          ? (_isSignedIn ? MessagesScreen() : SigninOrSignupScreen())
           : Center(
               child: CircularProgressIndicator(),
             ),

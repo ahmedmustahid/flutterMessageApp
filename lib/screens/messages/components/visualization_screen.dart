@@ -142,12 +142,15 @@ class _ScatterChartSample1State extends State {
             height: 32.0,
             width: 32.0,
             child: IconButton(
-              icon: Image.asset('assets/images/logout.png'),
-              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => SigninOrSignupScreen()),
-                (route) => false,
-              ),
-            ),
+                icon: Image.asset('assets/images/logout.png'),
+                onPressed: () async {
+                  await AuthRepositoryClass().signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => SigninOrSignupScreen()),
+                    (route) => false,
+                  );
+                }),
           )
         ],
       ),

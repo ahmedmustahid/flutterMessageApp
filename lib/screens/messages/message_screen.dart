@@ -5,6 +5,7 @@
 import 'package:chat/components/menu_items.dart';
 import 'package:chat/constants.dart';
 import 'package:chat/models/menu_item.dart';
+import 'package:chat/repositories/auth_repository.dart';
 import 'package:chat/screens/chats/components/pop_up_menu.dart';
 import 'package:chat/screens/messages/components/visualization_screen.dart';
 import 'package:chat/screens/signinOrSignUp/signin_or_signup_screen.dart';
@@ -42,11 +43,14 @@ class MessagesScreen extends StatelessWidget {
             width: 32.0,
             child: IconButton(
                 icon: Image.asset('assets/images/logout.png'),
-                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => SigninOrSignupScreen()),
-                      (route) => false,
-                    )),
+                onPressed: () async {
+                  await AuthRepositoryClass().signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => SigninOrSignupScreen()),
+                    (route) => false,
+                  );
+                }),
           ),
         ],
       ),
